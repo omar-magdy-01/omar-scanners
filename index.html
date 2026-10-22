@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+ <!-- Scan-Orders Favicon -->
+<link rel="icon" type="image/png" sizes="512x512" href="./scan-orders-logo.png">
+<link rel="apple-touch-icon" href="./scan-orders-logo.png">
+<meta name="theme-color" content="#101827">
+<title>Scan-Orders | Shipment Dashboard</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>delet shippment</title>
+<script>(()=>{let t;try{t=localStorage.getItem('scanapp.theme')}catch{}if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;try{if(localStorage.getItem('scanapp.lang')==='en'){document.documentElement.lang='en';document.documentElement.dir='ltr'}}catch{}})()</script>
+<style>
+:root{color-scheme:light;--bg:#eceee8;--ink:#18221d;--mut:#5d6a63;--line:#cfd5cc;--card:rgba(250,251,248,.80);--ov:linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,.22));--c:#1f6f5c;--bad:#a52a2a;--warn:#8a5a00;--ok:#1d6b3a;--info:#2b4fa3;--th:#e3e7df;--okbg:#dcefe2;--warnbg:#f7ead0;--badbg:#f5dada;--infobg:#dde6f7;--sh:0 1px 2px rgba(20,30,25,.06)}
+[data-theme=dark]{color-scheme:dark;--bg:#0e1411;--ink:#e7eee9;--mut:#9aaba1;--line:#28342d;--card:rgba(14,22,30,.58);--ov:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.5));--bad:#ff8f87;--warn:#f2bb5c;--ok:#62d28d;--info:#93b3ff;--th:#1e2923;--okbg:#17352a;--warnbg:#3a2e14;--badbg:#40201f;--infobg:#1d2c4d;--sh:none}
+*{box-sizing:border-box}
+body{margin:0;background:transparent;color:var(--ink);font:16px/1.6 "Segoe UI",Tahoma,"Noto Naskh Arabic",sans-serif;transition:background .2s,color .2s}
+.w{max-width:1100px;margin:auto;padding:20px 16px 48px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:24px;margin:0}
+button,input,select{font:inherit}
+input,select{background:var(--card);color:var(--ink);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+button{cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:9px 14px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+button:hover{border-color:var(--c)}
+button:disabled{opacity:.6;cursor:wait}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+.pri{background:var(--c);border-color:var(--c);color:#fff;font-weight:700}
+.pri:hover{filter:brightness(1.08)}
+.mut{color:var(--mut)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 6px}
+.tab{border-width:2px;font-weight:700;padding:10px 20px}
+.tab.on{background:var(--c);border-color:var(--c);color:#fff}
+.sc{background:var(--card);border:2px solid var(--c);border-radius:12px;padding:18px;margin:14px 0;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.sc label{font-weight:700;display:block;margin-bottom:8px}
+.sc input{width:100%;font-size:28px;padding:14px;border:2px solid var(--line);border-radius:8px;direction:ltr;text-align:left;font-family:ui-monospace,Consolas,monospace}
+#msg{margin-top:12px;padding:12px 14px;border-radius:8px;display:none;font-weight:600}
+#msg.ok{display:block;background:var(--okbg);color:var(--ok)}#msg.warn{display:block;background:var(--warnbg);color:var(--warn)}#msg.err{display:block;background:var(--badbg);color:var(--bad)}
+.st{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.st div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.st b{display:block;font-size:26px}.st span{color:var(--mut);font-size:13px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0}
+.bar input{padding:8px;border:1px solid var(--line);border-radius:8px}
+.bar select{padding:8px;border:1px solid var(--line);border-radius:8px}
+.tw{overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+table{border-collapse:collapse;width:100%;min-width:1100px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:start;font-size:14px}
+th{background:var(--th);color:var(--mut)}
+td.t{font-family:ui-monospace,Consolas,monospace;direction:ltr;text-align:left;font-weight:700}
+.v{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--okbg);color:var(--ok)}.v.u{background:var(--warnbg);color:var(--warn)}
+.x{color:var(--bad);padding:4px 10px}
+.sm{padding:3px 10px;font-size:12px;margin-top:4px}
+dialog{border:1px solid var(--line);border-radius:12px;max-width:640px;width:94%;background:var(--card);color:var(--ink);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+fieldset{border:1px solid var(--line);border-radius:10px;margin:0 0 12px;padding:10px 14px}
+legend{font-weight:700;padding:0 6px}
+.f{display:grid;gap:4px;margin:8px 0}.f small{color:var(--mut)}
+.f input,.f select{padding:8px;border:1px solid var(--line);border-radius:6px;width:100%}
+.f input[type=password],.f input.l{direction:ltr;text-align:left}
+[hidden]{display:none!important}
+.vt{display:flex;gap:8px;margin:16px 0 0}.vt button{border-radius:8px 8px 0 0;font-weight:700}.vt .on{background:var(--c);color:#fff;border-color:var(--c)}
+.kd{padding:2px 10px;font-size:12px;border-radius:99px;font-weight:700}.k-return{background:var(--badbg);color:var(--bad)}.k-exchange{background:var(--infobg);color:var(--info)}.k-delivery{background:var(--okbg);color:var(--ok)}
+h3{margin:18px 0 8px}
+/* ===== لوحة التحليلات ===== */
+.tb{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:0 0 16px;box-shadow:var(--sh);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.tb label{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--mut)}
+.tb select{padding:7px 10px;border:1px solid var(--line);border-radius:8px}
+.tb .sp{flex:1}
+.dh h2{margin:0;font-size:22px}.dh p{margin:2px 0 14px;color:var(--mut)}
+.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:0 0 14px}
+.kc{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;overflow:hidden;box-shadow:var(--sh);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.kc::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:4px;background:var(--a,var(--c))}
+.kc i{position:absolute;inset-inline-end:12px;top:10px;font-style:normal;font-size:22px}
+.kc span{display:block;color:var(--mut);font-size:13px;padding-inline-end:30px}
+.kc b{display:block;font-size:28px;line-height:1.25;font-weight:800;margin-top:4px;font-variant-numeric:tabular-nums}
+.cg{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin:0 0 14px}.cg2{grid-template-columns:1fr 1fr}
+.cc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-width:0;box-shadow:var(--sh);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.cc h3{margin:0 0 10px;font-size:15px}
+.lg{display:flex;gap:14px;font-size:12px;color:var(--mut);margin-bottom:6px;flex-wrap:wrap}
+.lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:5px}
+svg.ch{width:100%;height:auto;display:block;direction:ltr}
+.ch text{fill:var(--mut);font-size:11px;font-family:inherit}
+.ch .g{stroke:var(--line);stroke-width:1}
+.dn{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
+.dn svg{width:150px;flex:none}
+.dnl{display:grid;gap:8px;font-size:13px}
+.dnl div{display:flex;align-items:center;gap:8px}.dnl i{width:10px;height:10px;border-radius:3px;flex:none}.dnl b{margin-inline-start:auto;padding-inline-start:14px;font-variant-numeric:tabular-nums}
+.hb{display:grid;gap:10px}
+.hr{display:grid;grid-template-columns:minmax(70px,30%) 1fr auto;gap:10px;align-items:center;font-size:13px}
+.hr .n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hr .t{height:10px;background:var(--th);border-radius:99px;overflow:hidden;display:flex}
+.hr .t u{display:block;height:100%}
+.hr em{font-style:normal;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dl{display:block;font-size:12px;font-weight:700;color:var(--mut)}.dl.up{color:var(--ok)}.dl.dn{color:var(--bad)}
+@media(max-width:820px){.cg,.cg2{grid-template-columns:1fr}}
+@media(max-width:640px){.st{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+body.locked .w{display:none}
+#lock{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden;background:radial-gradient(1100px 560px at 15% 8%,rgba(184,134,11,.26),transparent 62%),radial-gradient(900px 500px at 92% 92%,rgba(130,92,12,.30),transparent 60%),linear-gradient(135deg,#050403,#0e0a05 50%,#050403)}
+body:not(.locked) #lock{display:none}
+#lock form{position:relative;z-index:1;background:linear-gradient(160deg,rgba(44,34,14,.62),rgba(14,12,8,.74));-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);border:1px solid rgba(212,175,55,.28);border-radius:22px;padding:30px 26px;width:100%;max-width:400px;box-shadow:0 30px 80px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,235,170,.12);color:#f3ead2}
+#lock h2{margin:0 0 6px;font-size:27px;color:#fff;letter-spacing:.3px}
+#lock::before{content:'';position:absolute;inset:-25%;background:repeating-linear-gradient(115deg,transparent 0 70px,rgba(212,175,55,.05) 70px 72px,transparent 72px 150px,rgba(212,175,55,.11) 150px 160px);filter:blur(5px);animation:lkm 22s linear infinite}
+@keyframes lkm{to{transform:translateX(160px)}}@media(prefers-reduced-motion:reduce){#lock::before{animation:none}}
+#lock form::before,#lock form::after{content:'';position:absolute;width:38px;height:38px;border:2px solid #d4af37;pointer-events:none;opacity:.9}
+#lock form::before{top:-1px;left:-1px;border-width:2px 0 0 2px;border-radius:22px 0 0 0}
+#lock form::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0;border-radius:0 0 22px 0}
+#lock .ls{margin:0 0 18px;color:#a89a72;font-size:14px;line-height:1.6}
+#lock .f{position:relative;margin-bottom:14px}
+#lock .f label{display:block;margin-bottom:6px;color:#cdbf96;font-size:13px;font-weight:600}
+#lock .f input{width:100%;box-sizing:border-box;padding:13px 42px;background-color:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.25);border-radius:12px;color:#fff;font-size:15px;outline:0;transition:border-color .2s,box-shadow .2s;background-repeat:no-repeat;background-position:calc(100% - 13px) center;background-size:18px}
+:root[dir=ltr] #lock .f input{background-position:13px center}
+#lock .f input:focus{border-color:#d4af37;box-shadow:0 0 0 3px rgba(212,175,55,.18)}
+#lock #ln{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c0-4 4-6 8-6s8 2 8 6'/%3E%3C/svg%3E")}
+#lock #lu{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='m3 7 9 6 9-6'/%3E%3C/svg%3E")}
+#lock #lp,#lock #lc{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E")}
+#lock .eye{position:absolute;bottom:8px;inset-inline-end:8px;background:none;border:0;color:#d4af37;font-size:18px;cursor:pointer;padding:4px 6px;opacity:.85}
+#lock #lp{padding-inline-end:44px}
+#lock #lb{width:100%;margin-top:4px;padding:14px;border:0;border-radius:12px;font-size:16px;font-weight:800;color:#1a1304;cursor:pointer;background:linear-gradient(135deg,#e0bb4a,#a67c14 55%,#8a6410);box-shadow:0 8px 24px rgba(166,124,20,.35);transition:filter .2s,transform .1s}
+#lock #lb::after{content:' ←'}:root[dir=ltr] #lock #lb::after{content:' →'}
+#lock #lb:hover{filter:brightness(1.1)}#lock #lb:active{transform:scale(.99)}#lock #lb:disabled{opacity:.6;cursor:wait}
+#lock #lsw,#lock #obk,#lock #orx{width:100%;background:none;border:0;color:#d4af37;font-size:14px;cursor:pointer;padding:10px;font-weight:600}
+#lock #le,#lock #oe{color:#ff8f7e;font-weight:600;min-height:1.6em;font-size:14px}#lock #lm,#lock #om{color:#9fe0a0;font-weight:600;font-size:14px}
+#of{display:none;text-align:center}body.otp #of{display:block}body.otp #lf{display:none}
+#of .oi{width:74px;height:74px;margin:0 auto 14px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;background:radial-gradient(circle,rgba(212,175,55,.28),rgba(212,175,55,.05));border:1px solid rgba(212,175,55,.5);box-shadow:0 0 30px rgba(212,175,55,.3)}
+#ob{display:flex;gap:12px;justify-content:center;margin:20px 0 8px}
+#ob input{width:58px;height:66px;box-sizing:border-box;text-align:center;font-size:28px;font-weight:700;color:#fff;background:rgba(255,255,255,.05);border:1.5px solid rgba(212,175,55,.3);border-radius:14px;outline:0;padding:0!important;transition:all .2s}
+#ob input:focus{border-color:#d4af37;box-shadow:0 0 0 2px rgba(212,175,55,.5),0 0 20px rgba(212,175,55,.45)}
+#ob input:not(:placeholder-shown){border-color:#d4af37}
+#of .orow{color:#a89a72;font-size:14px;display:flex;justify-content:center;align-items:center;gap:4px}#of .orow button{width:auto!important;padding:4px 6px!important}
+#of.shk{animation:shk .4s}@keyframes shk{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.logo{height:46px;max-width:260px;object-fit:contain;display:block}
+.hasbg .w{background:color-mix(in srgb,var(--bg) 85%,transparent);border-radius:16px;margin-block:14px}
+#smk{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999}
+.pv{display:flex;align-items:center;gap:10px;margin-top:6px}.pv img{max-height:48px;max-width:140px;border:1px solid var(--line);border-radius:6px;background:var(--th)}
+.bt{display:flex;gap:6px;flex-wrap:wrap}
+.who{font-size:13px;color:var(--mut);padding-inline:6px;align-self:center}
+dialog.wd{max-width:860px;width:94%}.chk{display:flex;gap:8px;align-items:center;margin:4px 0}.chk input{width:auto}.pg{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px}
+.uc{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:700;background:color-mix(in srgb,currentColor 14%,transparent)}.uc.ok{color:var(--ok)}.uc.warn{color:var(--warn)}.uc.bad{color:var(--bad)}
+@media(max-width:640px){.pg{grid-template-columns:1fr}}
+/* ===== القائمة الجانبية ===== */
+header{padding-inline-start:60px;min-height:46px}
+.m-btn{position:fixed;top:12px;inset-inline-start:12px;z-index:1002;width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(10px);box-shadow:0 4px 14px rgba(0,0,0,.12);display:grid;place-content:center;gap:5px;padding:0;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s}
+.m-btn:hover{transform:scale(1.07);box-shadow:0 6px 20px rgba(0,0,0,.22);background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.m-btn span{display:block;width:22px;height:2.5px;border-radius:2px;background:var(--ink);transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .2s,width .3s}
+.m-btn span:nth-child(2){width:15px}.m-btn:hover span:nth-child(2){width:22px}
+body.dopen .m-btn span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}body.dopen .m-btn span:nth-child(2){opacity:0}body.dopen .m-btn span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+.m-btn.dot::after{content:'';position:absolute;top:-4px;inset-inline-end:-4px;width:13px;height:13px;border-radius:50%;background:var(--bad);border:2px solid var(--bg);animation:mPulse 1.6s infinite}
+@keyframes mPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+.m-scr{position:fixed;inset:0;z-index:1000;background:rgba(10,18,14,.4);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .35s}
+body.dopen .m-scr{opacity:1;pointer-events:auto}
+.m-drw{position:fixed;top:0;bottom:0;inset-inline-start:0;z-index:1001;width:min(320px,86vw);display:flex;flex-direction:column;background:linear-gradient(170deg,var(--card) 55%,color-mix(in srgb,var(--c) 14%,var(--card)));border-inline-end:1px solid var(--line);box-shadow:0 0 40px rgba(0,0,0,.3);visibility:hidden;overflow:hidden;transition:transform .5s cubic-bezier(.22,1,.36,1),visibility 0s .5s}
+[dir=rtl] .m-drw{transform:translateX(105%)}[dir=ltr] .m-drw{transform:translateX(-105%)}
+body.dopen .m-drw{transform:none;visibility:visible;transition:transform .5s cubic-bezier(.22,1,.36,1),visibility 0s}
+.m-drw::before{content:'';position:absolute;inset-inline:0;top:0;height:150px;background:radial-gradient(120% 100% at 50% 0,color-mix(in srgb,var(--c) 38%,transparent),transparent);pointer-events:none}
+.m-h{position:relative;display:flex;align-items:center;gap:12px;padding:72px 20px 16px;border-bottom:1px solid var(--line)}
+.m-av{flex:none;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:20px;color:#fff;background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 55%,#000));box-shadow:0 4px 14px color-mix(in srgb,var(--c) 45%,transparent)}
+.m-w{display:grid;min-width:0}.m-w b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.m-w small{color:var(--mut)}
+.m-n{position:relative;flex:1;overflow:auto;padding:8px 12px}
+.m-s{font-size:12px;letter-spacing:.04em;color:var(--mut);margin:14px 10px 6px;font-weight:700}
+.m-n button,.m-f button{position:relative;isolation:isolate;display:flex;align-items:center;gap:10px;width:100%;text-align:start;background:transparent;border:0;border-radius:12px;padding:12px 14px;margin:2px 0;font:inherit;color:var(--ink);cursor:pointer;overflow:hidden;transition:transform .25s}
+.m-n button::before,.m-f button::before{content:'';position:absolute;inset:0;z-index:-1;background:color-mix(in srgb,var(--c) 16%,transparent);transform:scaleX(0);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+[dir=rtl] .m-n button::before,[dir=rtl] .m-f button::before{transform-origin:right}[dir=ltr] .m-n button::before,[dir=ltr] .m-f button::before{transform-origin:left}
+.m-n button:hover::before,.m-n button:focus-visible::before,.m-f button:hover::before,.m-f button:focus-visible::before{transform:scaleX(1)}
+[dir=rtl] .m-n button:hover,[dir=rtl] .m-f button:hover{transform:translateX(-5px)}[dir=ltr] .m-n button:hover,[dir=ltr] .m-f button:hover{transform:translateX(5px)}
+.m-n button::after{content:'';position:absolute;inset-block:10px;inset-inline-start:0;width:3px;border-radius:3px;background:var(--c);transform:scaleY(0);transition:transform .3s}
+.m-n button:hover::after,.m-n button[aria-pressed=true]::after{transform:scaleY(1)}
+.m-f{padding:12px;border-top:1px solid var(--line)}.m-f button{color:var(--bad);font-weight:700}.m-f button::before{background:color-mix(in srgb,var(--bad) 16%,transparent)}
+@keyframes mIn{from{opacity:0;transform:translateX(var(--x))}to{opacity:1;transform:none}}
+html[dir=rtl]{--x:30px}html[dir=ltr]{--x:-30px}
+body.dopen .m-h,body.dopen .m-n>*,body.dopen .m-f{animation:mIn .55s cubic-bezier(.22,1,.36,1) backwards;animation-delay:calc(var(--i,0)*45ms + 120ms)}
+@media(prefers-reduced-motion:reduce){.m-btn,.m-btn span,.m-scr,.m-drw,.m-n button,.m-n button::before,.m-n button::after,.m-f button,.m-f button::before{transition:none!important}body.dopen .m-h,body.dopen .m-n>*,body.dopen .m-f{animation:none!important}.m-btn.dot::after{animation:none}}
+.scr{display:flex;gap:8px;align-items:stretch}.scr input{flex:1;min-width:0}.cb{font-size:26px;padding:0 18px;border-radius:8px}
+#camo{position:fixed;inset:0;z-index:70;background:#000;display:flex;flex-direction:column}
+#camv{flex:1;min-height:0;width:100%;object-fit:cover;background:#000}
+#camo .cfr{position:absolute;left:8%;right:8%;top:28%;height:24%;border:3px solid rgba(255,255,255,.7);border-radius:12px;pointer-events:none}
+#cams{min-height:3.4em;padding:10px 14px;color:#fff;font-weight:700;background:#161616;text-align:center}
+#cams.ok{background:var(--okbg);color:var(--ok)}#cams.warn{background:var(--warnbg);color:var(--warn)}#cams.err{background:var(--badbg);color:var(--bad)}
+#camo .pri{margin:10px;padding:14px;font-size:18px}
+.qw{display:flex;align-items:center;gap:6px;flex:1;min-width:240px;max-width:480px}.qw input{flex:1;min-width:0;padding:8px 12px;border:1px solid var(--line);border-radius:8px}.qx{padding:4px 10px}
+
+html{background:#05070d}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(900px 600px at 18% 12%,#0e2436,transparent 70%),radial-gradient(800px 600px at 86% 88%,#2b170a,transparent 70%),#05070d}
+html[data-theme=light] body::before{background:radial-gradient(900px 600px at 18% 12%,#f4f8fd,transparent 70%),radial-gradient(800px 600px at 86% 88%,#fbeedd,transparent 70%),#e6ecf4}
+#bgc,#bgo{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}#bgo{background:var(--ov)}
+/* ===== مفاتيح بشكل Day/Night ===== */
+.m-n .tgl{position:relative;display:block;width:100%;max-width:240px;height:56px;margin:8px 0;padding:0;border:0;border-radius:40px;overflow:hidden;cursor:pointer;color:#fff;font:800 17px/1 inherit;text-shadow:0 1px 3px rgba(0,0,0,.35);box-shadow:inset 0 0 0 3px rgba(255,255,255,.6),0 4px 14px rgba(0,0,0,.3);transition:background .5s,filter .3s}
+.tgl .tx{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-inline-start:58px}
+.tgl[aria-pressed=true] .tx{padding-inline-start:0;padding-inline-end:58px}
+.tgl .kn{position:absolute;top:6px;inset-inline-start:6px;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 17px/1 inherit;font-style:normal;color:#243b6b;text-shadow:none;background:radial-gradient(circle at 35% 28%,#fff,#dfe3ec 70%);box-shadow:0 4px 10px rgba(0,0,0,.4),inset 0 -3px 6px rgba(0,0,0,.12);transition:inset-inline-start .5s cubic-bezier(.6,-.35,.3,1.35)}
+.tgl[aria-pressed=true] .kn{inset-inline-start:calc(100% - 50px)}
+.tgl .kn{font-size:22px}.tgl .a,.tgl .b{display:inline}.tgl .b,.tgl[aria-pressed=true] .a{display:none}.tgl[aria-pressed=true] .b{display:inline}
+#th{background:radial-gradient(ellipse 34px 12px at 28% 78%,rgba(255,255,255,.75),transparent),radial-gradient(ellipse 40px 14px at 70% 86%,rgba(255,255,255,.6),transparent),linear-gradient(#4aa6ee,#9bd2f8)}
+#th[aria-pressed=true]{background:radial-gradient(1.2px 1.2px at 22% 30%,#fff,transparent),radial-gradient(1.6px 1.6px at 55% 72%,#fff,transparent),radial-gradient(1.2px 1.2px at 78% 24%,#fff,transparent),radial-gradient(1px 1px at 44% 18%,#fff,transparent),radial-gradient(1.4px 1.4px at 88% 70%,#fff,transparent),linear-gradient(#0c1a3c,#18285a)}
+#th[aria-pressed=true] .kn{background:radial-gradient(circle at 35% 28%,#fff,#cfd5e6 70%)}
+#smb{background:radial-gradient(ellipse 30px 14px at 30% 70%,rgba(255,255,255,.35),transparent),radial-gradient(ellipse 36px 16px at 66% 30%,rgba(255,255,255,.28),transparent),linear-gradient(#2c3a52,#5d7194)}
+#smb:not([aria-pressed=true]){background:linear-gradient(#262a33,#363c48);filter:saturate(.7)}#smb:not([aria-pressed=true]) .kn{filter:grayscale(1) opacity(.7)}
+#lg{background:linear-gradient(#0e6a56,#19a687)}#lg[aria-pressed=true]{background:linear-gradient(#1c3a8c,#3f74dc)}
+.tgl:focus-visible{outline:3px solid #d4af37;outline-offset:2px}
+/* ===== صفحة الدخول: تبويب + أسماء طافية + روبوت ===== */
+#lock{flex-direction:column;overflow-x:hidden;overflow-y:auto}#lock::before{content:none}
+#wp{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+#lock #lf,#lock #of{margin:0 auto}
+#lock #lf{padding-top:70px}#lock #of{padding-top:30px}
+#lock #lt{position:absolute;top:0;left:50%;transform:translateX(-50%);margin:0;padding:12px 34px;font-size:22px;white-space:nowrap;color:#1a1304;background:#d1a82f;border-radius:0 0 20px 20px;box-shadow:0 6px 18px rgba(209,168,47,.35)}
+#lock #lt::before,#lock #lt::after{content:'';position:absolute;top:0;width:30px;height:30px;background:transparent}
+#lock #lt::before{left:-30px;border-top-right-radius:50%;box-shadow:15px 0 0 0 #d1a82f}
+#lock #lt::after{right:-30px;border-top-left-radius:50%;box-shadow:-15px 0 0 0 #d1a82f}
+#lock .f label{position:absolute;top:50%;inset-inline-start:44px;margin:0;transform:translateY(-50%);pointer-events:none;transition:all .2s;font-size:14px;z-index:1}
+#lock .f:focus-within label,#lock .f:has(input:not(:placeholder-shown)) label{top:0;inset-inline-start:18px;font-size:12px;color:#1a1304;background:#d1a82f;padding:1px 11px;border-radius:20px}
+#lock .f input{border-radius:30px;border-width:2px}#lock #lb{border-radius:30px}
+#rb{position:relative;z-index:2;flex:none;width:200px;height:190px;margin:0 auto -14px;perspective:700px;animation:flt 4s ease-in-out infinite}
+@keyframes flt{50%{transform:translateY(-6px)}}
+@media(max-height:760px){#rb{zoom:.72;margin-bottom:-26px}}
+#rh{position:absolute;left:50%;top:8px;width:128px;height:104px;margin-left:-64px;border-radius:34px;transform-style:preserve-3d;transform:rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .12s ease-out;background:radial-gradient(circle at 30% 20%,#fff7da,#d8b44a 38%,#8c6a16 82%);box-shadow:inset -8px -10px 18px rgba(60,40,0,.55),inset 6px 6px 12px rgba(255,255,255,.55),0 16px 28px rgba(0,0,0,.6)}
+#rh .fp{position:absolute;inset:16px 12px 14px;border-radius:24px;background:radial-gradient(circle at 50% 0,#1d2230,#06080d);box-shadow:inset 0 0 14px #000,0 0 0 2px rgba(255,255,255,.18);transform:translateZ(14px)}
+#rh .ey{position:absolute;top:22px;width:26px;height:26px;border-radius:50%;overflow:hidden;background:radial-gradient(circle,#fff6c9,#f1c94a 60%,#a07a10);box-shadow:0 0 14px #f1c94a;transition:all .2s}
+#rh .ey.l{left:15px}#rh .ey.r{right:15px}
+#rh .ey b{position:absolute;left:50%;top:50%;width:11px;height:11px;margin:-5.5px;border-radius:50%;background:#1a1204;transform:translate(var(--px,0),var(--py,0));transition:transform .08s}
+#rh .mo{position:absolute;left:50%;bottom:11px;width:30px;height:6px;margin-left:-15px;border-radius:0 0 20px 20px;background:#f1c94a;box-shadow:0 0 8px #f1c94a;transition:all .25s}
+#rh .an{position:absolute;left:50%;top:-20px;width:4px;height:22px;margin-left:-2px;background:#8c6a16}
+#rh .an::after{content:'';position:absolute;left:-6px;top:-12px;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#ff7b5c 50%,#a3220a);box-shadow:0 0 14px #ff7b5c;animation:bl 1.6s infinite}
+@keyframes bl{50%{opacity:.45}}
+#rh .ea{position:absolute;top:34px;width:12px;height:36px;border-radius:8px;background:linear-gradient(90deg,#8c6a16,#e0bb4a,#8c6a16)}#rh .ea.l{left:-9px}#rh .ea.r{right:-9px}
+#rt{position:absolute;left:50%;top:106px;width:100px;height:72px;margin-left:-50px;border-radius:30px 30px 22px 22px;background:radial-gradient(circle at 30% 15%,#fff7da,#c49a2c 45%,#6d4f0c);box-shadow:inset -8px -8px 16px rgba(60,40,0,.5),0 10px 20px rgba(0,0,0,.5)}
+#rt i{position:absolute;left:50%;top:20px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#5be3ff 45%,#0a6f86);box-shadow:0 0 14px #5be3ff}
+#rd{position:absolute;right:2px;top:92px;width:84px;height:84px;opacity:0;transform:translateY(46px) scale(.5);transform-origin:bottom;transition:all .35s cubic-bezier(.3,1.5,.5,1);pointer-events:none}
+#rd svg{display:none;position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 6px 8px rgba(0,0,0,.5))}
+#rb.ok #rd,#rb.no #rd{opacity:1;transform:none}#rb.ok .ho{display:block}#rb.no .hn{display:block;transform-origin:50% 90%;animation:wag .55s ease-in-out 3}
+@keyframes wag{25%{transform:rotate(-22deg)}75%{transform:rotate(22deg)}}
+#rb.ok .ey{height:10px;top:32px;border-radius:14px 14px 0 0}#rb.ok .mo{height:12px;width:40px;margin-left:-20px;border-radius:0 0 30px 30px}
+#rb.ok #rh{animation:nod .9s}@keyframes nod{30%{transform:rotateX(16deg)}60%{transform:rotateX(-9deg)}}
+#rb.no .ey{height:17px;top:27px;background:radial-gradient(circle,#ffd0c8,#ff5a4a 60%,#8a1208);box-shadow:0 0 16px #ff5a4a}#rb.no .mo{background:#ff5a4a;box-shadow:0 0 8px #ff5a4a;border-radius:20px 20px 0 0;height:5px}
+#rb.no #rh{animation:shk2 .9s}@keyframes shk2{0%,100%{transform:rotateY(0)}15%{transform:rotateY(-28deg)}35%{transform:rotateY(28deg)}55%{transform:rotateY(-22deg)}75%{transform:rotateY(18deg)}}
+@media(prefers-reduced-motion:reduce){#rb{animation:none}}
+
+/* ===== BEBO ===== */
+body.locked #bebo{display:none}
+#bebo{position:fixed;inset-inline-end:18px;bottom:18px;z-index:45;font-family:inherit}
+#bb{position:relative;width:64px;height:64px;border-radius:50%;border:0;padding:0;cursor:pointer;background:radial-gradient(circle at 32% 25%,#fff3c4,#d8b44a 40%,#8c6a16);box-shadow:0 8px 24px rgba(0,0,0,.5),inset -4px -6px 10px rgba(60,40,0,.5),inset 3px 3px 7px rgba(255,255,255,.6);animation:bbf 3.6s ease-in-out infinite}
+#bb::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(216,180,74,.55);animation:bbp 2.4s ease-out infinite}
+@keyframes bbp{0%{transform:scale(.92);opacity:.9}100%{transform:scale(1.35);opacity:0}}@keyframes bbf{50%{transform:translateY(-4px)}}
+.bfc{position:absolute;left:11px;right:11px;top:17px;height:30px;border-radius:12px;background:radial-gradient(circle at 50% 0,#1d2230,#06080d);box-shadow:inset 0 0 8px #000;display:flex;gap:9px;align-items:center;justify-content:center}
+.be{width:9px;height:9px;border-radius:50%;background:#ffd86b;box-shadow:0 0 8px #ffd86b;animation:bbk 4.5s infinite}@keyframes bbk{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.ba{position:absolute;left:50%;top:5px;width:3px;height:9px;margin-left:-1.5px;background:#8c6a16}.ba::after{content:'';position:absolute;left:-3px;top:-6px;width:9px;height:9px;border-radius:50%;background:#ff7b5c;box-shadow:0 0 8px #ff7b5c;animation:bl 1.6s infinite}
+#bt{position:absolute;bottom:76px;inset-inline-end:0;width:max-content;max-width:230px;padding:10px 14px;border-radius:16px;background:rgba(14,18,26,.9);color:#f3ead2;border:1px solid rgba(212,175,55,.45);font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.45);opacity:0;transform:translateY(8px);pointer-events:none;transition:all .35s}
+#bt.on{opacity:1;transform:none}
+#bp{position:absolute;bottom:78px;inset-inline-end:0;width:min(380px,calc(100vw - 28px));height:min(560px,calc(100dvh - 120px));display:none;flex-direction:column;overflow:hidden;color:#f3ead2;border-radius:20px;background:linear-gradient(160deg,rgba(40,32,14,.82),rgba(12,14,20,.9));-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(212,175,55,.35);box-shadow:0 24px 70px rgba(0,0,0,.65)}
+#bebo.open #bp{display:flex;animation:bpi .25s ease-out}@keyframes bpi{from{opacity:0;transform:translateY(14px) scale(.97)}}
+#bp header{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(212,175,55,.22);background:rgba(212,175,55,.08)}
+#bp .bav{position:relative;width:40px;height:40px;border-radius:50%;flex:none;background:radial-gradient(circle at 32% 25%,#fff3c4,#d8b44a 45%,#8c6a16)}
+#bp .bav .bfc{left:7px;right:7px;top:11px;height:19px;border-radius:8px;gap:6px}#bp .bav .be{width:6px;height:6px}
+#bp header b{font-size:17px;color:#fff;letter-spacing:.5px}#bp header small{display:block;color:#a89a72;font-size:12px}
+#bx{margin-inline-start:auto;background:none;border:0;color:#d4af37;font-size:18px;cursor:pointer}
+#bm{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.bmsg{max-width:88%;padding:10px 13px;border-radius:16px;font-size:14px;line-height:1.7;word-wrap:break-word}
+.bmsg.b{align-self:flex-start;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-end-start-radius:4px}
+.bmsg.u{align-self:flex-end;color:#1a1304;background:linear-gradient(135deg,#e0bb4a,#a67c14);font-weight:600;border-end-end-radius:4px}
+.bmsg.ty{display:flex;gap:5px}.bmsg.ty i{width:7px;height:7px;border-radius:50%;background:#d4af37;animation:bty 1s infinite}.bmsg.ty i:nth-child(2){animation-delay:.15s}.bmsg.ty i:nth-child(3){animation-delay:.3s}@keyframes bty{40%{transform:translateY(-5px);opacity:.5}}
+.bcard{margin:8px 0 0;padding:9px 11px;border-radius:12px;background:rgba(0,0,0,.28);border:1px solid rgba(212,175,55,.25);font-size:13px;line-height:1.75}
+.bk{display:inline-block;padding:0 8px;border-radius:10px;background:rgba(212,175,55,.2);color:#ffd86b;font-size:12px}
+#bc{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+#bc button{padding:6px 11px;border-radius:16px;border:1px solid rgba(212,175,55,.45);background:rgba(212,175,55,.08);color:#e9d9a0;font-size:12.5px;cursor:pointer;transition:background .2s}#bc button:hover{background:rgba(212,175,55,.25)}
+#bf{display:flex;gap:8px;padding:10px 12px;border-top:1px solid rgba(212,175,55,.22)}
+#bi{flex:1;min-width:0;padding:11px 15px;border-radius:24px;border:1px solid rgba(212,175,55,.35);background:rgba(255,255,255,.06);color:#fff;font-size:14px;outline:0}#bi:focus{border-color:#d4af37}
+#bf button{width:44px;border:0;border-radius:50%;cursor:pointer;font-size:18px;color:#1a1304;background:linear-gradient(135deg,#e0bb4a,#a67c14)}
+@media(max-width:520px){#bebo{inset-inline-end:12px;bottom:12px}}
+@media(prefers-reduced-motion:reduce){#bb,#bb::after,.be,.ba::after{animation:none}}
+</style>
+<style>
+/* سلة المهملات (للمسؤول فقط) */
+#tr{border-color:var(--bad);color:var(--bad);font-weight:700}
+#tr:hover{border-color:var(--bad);background:var(--badbg)}
+#trd h2{margin:0 0 4px}
+.trs{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:8px 0}
+.trs .chk{font-weight:700;margin:0}
+.trw{max-height:50vh}
+.trw table{min-width:640px}
+.trw th{position:sticky;top:0;z-index:1}
+.trw th:first-child,.trw td:first-child{width:42px;text-align:center}
+#tra,.trw input[type=checkbox]{width:18px;height:18px;accent-color:var(--bad);cursor:pointer}
+.trf{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+#trx{background:var(--bad);border-color:var(--bad);color:#fff;font-weight:700}
+[data-theme=dark] #trx{color:#2a0d0b}
+#trx:disabled{opacity:.45;cursor:not-allowed}
+.trm{min-height:1.6em;font-weight:600;margin-top:8px}.trm.ok{color:var(--ok)}.trm.bad{color:var(--bad)}
+.bact{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.bact button{padding:5px 10px;font-size:13px}
+.bact button[data-bdel=yes]{background:var(--bad);border-color:var(--bad);color:#fff}
+[data-theme=dark] .bact button[data-bdel=yes]{color:#2a0d0b}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+</head>
+<body class="locked"><canvas id="bgc" aria-hidden="true"></canvas><div id="bgo" aria-hidden="true"></div>
+<div class="w">
+<header><h1 id="ttl">مسح الشحنات</h1></header>
+<nav class="tabs" id="tabs"></nav>
+<section class="sc"><label for="tn">امسح الباركود أو اكتب رقم الشحنة ثم Enter</label><div class="scr"><input id="tn" autocomplete="off" autofocus><button type="button" id="cam" class="pri cb" title="مسح بالكاميرا" aria-label="مسح بالكاميرا" hidden>📷</button></div><div id="msg" role="status"></div></section>
+<section class="st"><div><b id="s1">0</b><span>الصادر (توصيل واستبدال)</span></div><div><b id="s2">0</b><span>المرتجعات</span></div><div><b id="s3">0</b><span>حركات اليوم</span></div><div><b id="s4">0</b><span>محاولات مكررة</span><br><button type="button" id="dz" class="sm">تصفير العداد</button></div></section>
+<div class="vt"><button data-v="out">الصادر</button><button data-v="ret">المرتجعات</button><button data-v="an">التحليلات</button></div>
+<div class="bar"><input type="date" id="dd" aria-label="التاريخ"><select id="dm" aria-label="نوع الفترة"><option value="d">يومي</option><option value="m">شهري</option></select><span id="qw" class="qw"><input type="search" id="q" aria-label="بحث" autocomplete="off"><button type="button" id="qx" class="qx" aria-label="مسح البحث" hidden>✕</button><span id="qc" class="mut"></span></span><button id="dl" class="pri">📥 تحميل تقرير اليوم Excel</button><button id="tr" type="button" hidden title="حذف الأوردرات المحددة نهائيًا (للمسؤول فقط)">🗑️ سلة المهملات</button><button id="dbg" title="ينسخ رد بوسطة بعد حجب بيانات العميل">نسخ رد بوسطة الأخير (تشخيص)</button></div>
+<div id="an" hidden><div class="tb"><label>الفترة <select id="per"><option value="month">شهر التاريخ المحدد</option><option value="day">اليوم المحدد</option><option value="all">الكل</option></select></label><label>ترتيب العملاء <select id="cs"><option value="t">الأكثر طلبًا</option><option value="r">الأكثر مرتجعًا</option></select></label><span class="sp"></span><span id="rfs" class="mut"></span><button id="rf">🔄 تحديث حالات الشحنات من بوسطة</button></div><div id="anb"></div></div>
+<div class="tw" id="tw"><table><thead><tr><th>رقم الشحنة</th><th>النوع</th><th>وقت المسح</th><th>العميل</th><th>المحافظة</th><th>القطع</th><th>الوصف</th><th>COD</th><th>الشحن</th><th>الصافي</th><th>الحالة</th><th></th></tr></thead><tbody id="rows"></tbody></table></div>
+<button id="mnb" class="m-btn" type="button" aria-label="القائمة" aria-expanded="false" aria-controls="mdr"><span></span><span></span><span></span></button>
+<div id="msc" class="m-scr"></div>
+<aside id="mdr" class="m-drw" aria-label="القائمة">
+<div class="m-h"><div class="m-av" id="av">?</div><div class="m-w"><b id="wn"></b><small id="wr"></small></div></div>
+<nav class="m-n">
+<div class="m-s">الواجهة</div>
+<button id="lg" class="tgl" type="button" aria-pressed="false" aria-label="Language"><span class="tx"><span class="a">العربية</span><span class="b">English</span></span><i class="kn"><span class="a">ع</span><span class="b">EN</span></i></button><button id="smb" class="tgl" type="button" aria-pressed="true" aria-label="Smoke"><span class="tx"><span class="a">بدون دخان</span><span class="b">دخان</span></span><i class="kn">💨</i></button><button id="th" class="tgl" type="button" aria-pressed="false" aria-label="Theme"><span class="tx"><span class="a">نهاري</span><span class="b">ليلي</span></span><i class="kn"><span class="a">☀️</span><span class="b">🌙</span></i></button>
+<div id="madm" hidden><div class="m-s">الإدارة</div><button id="um" type="button" hidden>👥 المستخدمون</button><button id="cf" type="button" hidden>إعدادات البراندات وشركات الشحن</button></div>
+<div class="m-s">الحساب</div>
+<button id="cpw" type="button">🔑 كلمة مرور حسابي</button>
+</nav>
+<div class="m-f"><button id="lo" type="button">🔒 تسجيل الخروج</button></div>
+</aside>
+</div>
+<div id="lock"><canvas id="wp" aria-hidden="true"></canvas><div id="rb" aria-hidden="true"><div id="rh"><i class="an"></i><i class="ea l"></i><i class="ea r"></i><div class="fp"><div class="ey l"><b></b></div><div class="ey r"><b></b></div><u class="mo"></u></div></div><div id="rt"><i></i></div><div id="rd"><svg class="ho" viewBox="0 0 100 100"><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1b8"/><stop offset="1" stop-color="#b8861b"/></linearGradient></defs><g fill="url(#gg)" stroke="#6d4f0c" stroke-width="2"><rect x="50" y="8" width="11" height="42" rx="5.5"/><rect x="63" y="12" width="11" height="40" rx="5.5"/><rect x="76" y="20" width="10" height="34" rx="5"/><circle cx="42" cy="46" r="14" fill="none" stroke="#e0bb4a" stroke-width="8"/><rect x="26" y="50" width="56" height="42" rx="18"/></g></svg><svg class="hn" viewBox="0 0 100 100"><g fill="url(#gg)" stroke="#6d4f0c" stroke-width="2"><rect x="44" y="4" width="15" height="52" rx="7.5"/><rect x="24" y="46" width="52" height="46" rx="18"/><rect x="16" y="56" width="22" height="13" rx="6.5" transform="rotate(-20 27 62)"/></g></svg></div></div><form id="lf"><h2 id="lt">تسجيل الدخول</h2><p class="ls" id="lsub">ادخل إلى مساحة العمل الآمنة الخاصة بك</p><div class="f" id="lnw" hidden><label for="ln">الاسم</label><input id="ln" autocomplete="name"></div><div class="f"><label for="lu">البريد الإلكتروني</label><input id="lu" type="email" class="l" autocomplete="email"></div><div class="f"><label for="lp">كلمة المرور</label><input type="password" id="lp" class="l" autocomplete="current-password"><button type="button" id="lpe" class="eye" aria-label="إظهار كلمة المرور">👁</button></div><div class="f" id="lcw" hidden><label for="lc">أعد كتابة كلمة المرور</label><input type="password" id="lc" class="l" autocomplete="new-password"></div><div id="le" role="alert" style="color:var(--bad);font-weight:600;min-height:1.6em"></div><div id="lm" role="status" style="color:var(--ok);font-weight:600"></div><button type="submit" class="pri" id="lb">دخول</button> <button type="button" id="lsw">ليس لديك حساب؟ اطلب حساب جديد</button></form><form id="of" autocomplete="off"><div class="oi">🔐</div><h2>تحقق من هويتك</h2><p class="ls">اكتب كود التحقق المكوّن من 4 أرقام. تم إرساله لمسؤول النظام، وهيتأكد تلقائيًا أول ما تكمله.</p><div id="ob" dir="ltr"><input inputmode="numeric" pattern="[0-9]*" maxlength="1" placeholder=" " aria-label="رقم 1" autocomplete="one-time-code"><input inputmode="numeric" pattern="[0-9]*" maxlength="1" placeholder=" " aria-label="رقم 2"><input inputmode="numeric" pattern="[0-9]*" maxlength="1" placeholder=" " aria-label="رقم 3"><input inputmode="numeric" pattern="[0-9]*" maxlength="1" placeholder=" " aria-label="رقم 4"></div><div id="oe" role="alert"></div><div id="om" role="status"></div><div class="orow"><span>لم يصلك الكود؟</span><button type="button" id="orx">إعادة الإرسال</button></div><button type="button" id="obk">رجوع</button></form></div>
+<div id="bebo"><div id="bt"></div><section id="bp" role="dialog" aria-label="BEBO"><header><div class="bav"><i class="ba"></i><div class="bfc"><i class="be"></i><i class="be"></i></div></div><div><b>BEBO</b><small id="bs"></small></div><button id="bx" type="button" aria-label="Close">✕</button></header><div id="bm" aria-live="polite"></div><div id="bc"></div><form id="bf" autocomplete="off"><input id="bi" type="text" aria-label="BEBO"><button type="submit" aria-label="Send">➤</button></form></section><button id="bb" type="button" aria-label="BEBO"><i class="ba"></i><div class="bfc"><i class="be"></i><i class="be"></i></div></button></div><canvas id="smk" aria-hidden="true"></canvas>
+<dialog id="dlg"><form method="dialog" id="cfg"><h2>إعدادات البراندات</h2><div id="bl"></div><button type="button" id="add">+ إضافة براند</button> <button type="button" id="sv" class="pri">حفظ</button> <button value="x">إغلاق</button></form></dialog>
+<dialog id="usr" class="wd"><div id="ub"></div><div style="margin-top:12px"><button type="button" id="uc">إغلاق</button></div></dialog>
+<dialog id="pwd"><form id="pwf"><h2 id="pwt">كلمة المرور</h2><div class="f"><label for="pw1">كلمة المرور</label><input type="password" id="pw1" class="l" autocomplete="off"></div><div class="f" id="pw2w" hidden><label for="pw2">أعد كتابتها للتأكيد</label><input type="password" id="pw2" class="l" autocomplete="off"></div><div id="pwe" role="alert" style="color:var(--bad);font-weight:600;min-height:1.6em"></div><button type="submit" class="pri">تأكيد</button> <button type="button" id="pwx">إلغاء</button></form></dialog>
+<dialog id="trd" class="wd"><h2>🗑️ سلة المهملات</h2><div class="mut" id="trb"></div>
+<div class="bar"><select id="trp" aria-label="الفترة"><option value="a">كل الفترات</option><option value="d">اليوم المحدد</option><option value="m">الشهر المحدد</option></select><select id="trk" aria-label="النوع"><option value="all">كل الأنواع</option><option value="out">الصادر فقط</option><option value="ret">المرتجعات فقط</option></select><input type="search" id="trq" autocomplete="off"></div>
+<div class="trs"><label class="chk"><input type="checkbox" id="tra"><span>تحديد الكل</span></label><span id="trn" class="mut"></span></div>
+<div class="tw trw"><table><thead><tr><th></th><th>رقم الشحنة</th><th>النوع</th><th>وقت المسح</th><th>العميل</th><th>الحالة</th></tr></thead><tbody id="trr"></tbody></table></div>
+<div id="trm" class="trm" role="status"></div>
+<div class="trf"><button type="button" id="trx">🗑️ حذف المحدد</button><button type="button" id="trc">إغلاق</button></div></dialog>
+<div id="camo" hidden><video id="camv" playsinline muted></video><div class="cfr"></div><div id="cams" role="status"></div><button type="button" id="camx" class="pri">إغلاق</button></div>
+<script>
+const $=s=>document.querySelector(s),KEY='scanapp.v1';
+let ME=null,signup=false,USERS={},DBR=[],poll=0,lastP=0,syncT=0,savedCfg=false;function isAdm(){return !!ME&&ME.role==='admin'}
+const EN=new Map(Object.entries({"مسح الشحنات": "Shipment Scanner", "🌙 نمط ليلي": "🌙 Dark mode", "☀️ نمط نهاري": "☀️ Light mode", "إعدادات البراندات وشركات الشحن": "Brands & carriers settings", "امسح الباركود أو اكتب رقم الشحنة ثم Enter": "Scan the barcode or type the tracking number, then press Enter", "الصادر (توصيل واستبدال)": "Outgoing (delivery & exchange)", "المرتجعات": "Returns", "حركات اليوم": "Today's scans", "محاولات مكررة": "Duplicate attempts", "تصفير العداد": "Reset counter", "الصادر": "Outgoing", "صادر": "Outgoing", "التحليلات": "Analytics", "التاريخ": "Date", "نوع الفترة": "Period type", "يومي": "Daily", "شهري": "Monthly", "📥 تحميل تقرير اليوم Excel": "📥 Download daily Excel report", "📥 تحميل تقرير الشهر Excel": "📥 Download monthly Excel report", "نسخ رد بوسطة الأخير (تشخيص)": "Copy last Bosta response (debug)", "ينسخ رد بوسطة بعد حجب بيانات العميل": "Copies the Bosta response with customer data masked", "الفترة": "Period", "شهر التاريخ المحدد": "Month of selected date", "اليوم المحدد": "Selected day", "الكل": "All", "ترتيب العملاء": "Sort customers", "الأكثر طلبًا": "Most orders", "الأكثر مرتجعًا": "Most returns", "🔄 تحديث حالات الشحنات من بوسطة": "🔄 Refresh shipment statuses from Bosta", "رقم الشحنة": "Tracking no.", "النوع": "Type", "وقت المسح": "Scan time", "العميل": "Customer", "المحافظة": "Governorate", "القطع": "Items", "الوصف": "Description", "الشحن": "Shipping", "الحالة": "Status", "حذف": "Delete", "إعدادات البراندات": "Brand settings", "+ إضافة براند": "+ Add brand", "حفظ": "Save", "تغيير كلمة المرور": "Change password", "إغلاق": "Close", "كلمة المرور": "Password", "أعد كتابتها للتأكيد": "Repeat to confirm", "تأكيد": "Confirm", "إلغاء": "Cancel", "توصيل": "Delivery", "استبدال": "Exchange", "مرتجع": "Return", "بدون تحقق": "No verification", "تم التحقق": "Verified", "مبيعات": "Sales", "مرتجعات": "Returns", "الوقت": "Time", "التليفون": "Phone", "التحقق": "Verification", "لا توجد مرتجعات لهذا البراند.": "No returns for this brand.", "لا توجد شحنات لهذا البراند. ابدأ بمسح أول باركود.": "No shipments for this brand. Start by scanning a barcode.", "اسم البراند": "Brand name", "اللون": "Color", "شركة الشحن": "Carrier", "Bosta (بوسطة)": "Bosta", "شركة أخرى (رابط مخصص)": "Other carrier (custom URL)", "مفتاح الـ API لهذا البراند": "API key for this brand", "يُحفظ في هذا المتصفح فقط. الأفضل مفتاح Read Only.": "Stored in this browser only. A read-only key is best.", "رابط التحقق (للشركة الأخرى فقط)": "Verification URL (other carriers only)", "مثال: https://api.example.com/track/{tracking}": "Example: https://api.example.com/track/{tracking}", "بادئة المفتاح (مثال: Bearer )": "Key prefix (e.g. Bearer )", "رابط Proxy (اختياري)": "Proxy URL (optional)", "لو ظهرت رسالة CORS ضع رابط الـ Worker هنا": "If a CORS error appears, put the Worker URL here", "حذف البراند": "Delete brand", "خلفية الموقع": "Site background", "بدون (الافتراضي)": "None (default)", "لون": "Color", "صورة": "Image", "لون الخلفية": "Background color", "صورة الخلفية": "Background image", "لوجو البراند": "Brand logo", "يظهر مكان عنوان \"مسح الشحنات\" أعلى الصفحة.": "Shown in place of the \"Shipment Scanner\" title at the top.", "إزالة الصورة": "Remove image", "إزالة اللوجو": "Remove logo", "كلمة مرور الإعدادات": "Settings password", "إنشاء كلمة مرور للإعدادات": "Create a settings password", "أدخل كلمة المرور الحالية": "Enter the current password", "كلمة المرور الجديدة": "New password", "كلمة المرور لازم تكون 4 حروف على الأقل.": "Password must be at least 4 characters.", "التأكيد غير مطابق.": "Confirmation does not match.", "تعذر حفظ كلمة المرور في المتصفح.": "Could not save the password in the browser.", "كلمة المرور غير صحيحة.": "Wrong password.", "تسجيل الدخول": "Sign in", "إنشاء حساب الدخول": "Create login", "أول تشغيل: أنشئ اسم مستخدم وكلمة مرور للدخول للموقع.": "First run: create a username and password for this site.", "اسم المستخدم": "Username", "أعد كتابة كلمة المرور": "Repeat password", "دخول": "Sign in", "حفظ ودخول": "Save & sign in", "اسم المستخدم مطلوب.": "Username is required.", "اسم المستخدم أو كلمة المرور غير صحيحة.": "Wrong username or password.", "تعذر حفظ بيانات الدخول في المتصفح.": "Could not save login details in the browser.", "🔒 تسجيل الخروج": "🔒 Sign out", "💨 دخان: تشغيل": "💨 Smoke: on", "💨 دخان: إيقاف": "💨 Smoke: off", "تعذر الحفظ في المتصفح. حمّل نسخة احتياطية الآن.": "Could not save in the browser. Download a backup now.", "تعذر الاتصال بشركة الشحن. غالبًا المتصفح بيمنع الطلب المباشر (CORS). أضف رابط Proxy في إعدادات البراند (الخطوات في README).": "Could not reach the carrier. The browser is probably blocking the direct request (CORS). Add a Proxy URL in the brand settings.", "شركة الشحن لم تجد هذه الشحنة. لم تُسجل.": "The carrier did not find this shipment. Not recorded.", "بوسطة لم ترجع بيانات للشحنة. لم تُسجل.": "Bosta returned no data for this shipment. Not recorded.", "امسح شحنة بوسطة حقيقية الأول، وبعدين اضغط الزرار.": "Scan a real Bosta shipment first, then press the button.", "تم نسخ رد بوسطة (بعد حجب بيانات العميل). الصقه في الشات.": "Bosta response copied (customer data masked). Paste it in the chat.", "تعذر النسخ.": "Copy failed.", "تعذر تحميل مكتبة Excel. تأكد من اتصال الإنترنت وحاول تاني.": "Could not load the Excel library. Check your internet connection and try again.", "تعذر إنشاء ملف Excel.": "Could not create the Excel file.", "كل الشحنات محدّثة (مستلمة أو مرتجعة).": "All shipments are up to date (received or returned).", "طلبات صادرة": "Outgoing orders", "نسبة المرتجع": "Return rate", "صافي القطع": "Net items", "صافي COD": "Net COD", "صافي الشحن": "Net shipping", "شحنات مستلمة": "Received shipments", "مرتجعة / لم تُستلم": "Returned / not received", "قيد التوصيل": "In delivery", "نسبة الاستلام": "Receipt rate", "نسبة المرتجع (من المحسوم)": "Return rate (of settled)", "عملاء استلموا": "Customers who received", "عملاء لم يستلموا": "Customers who did not receive", "عملاء متكررون": "Repeat customers", "لوحة التحليلات": "Analytics dashboard", "الصادر مقابل المرتجع يوميًا": "Outgoing vs returns per day", "حالة الشحنات الصادرة": "Outgoing shipment status", "مستلمة": "Received", "مرتجعة": "Returned", "الحالات لسه ماتحدثتش. اضغط \"تحديث حالات الشحنات من بوسطة\".": "Statuses are not updated yet. Press \"Refresh shipment statuses from Bosta\".", "الاستلام والعملاء": "Receipts & customers", "أعلى المحافظات": "Top governorates", "أعلى المنتجات": "Top products", "المحافظات": "Governorates", "المنتجات (حسب وصف الشحنة)": "Products (by shipment description)", "العملاء": "Customers", "الطلبات": "Orders", "استلم": "Received", "لا بيانات في الفترة دي.": "No data in this period.", "غير محدد": "Unspecified", "مفيش بيانات عملاء. بيانات العميل بتتسجل مع الشحنات الجديدة، والقديمة بتتكمل بزرار التحديث.": "No customer data. Customer data is saved with new shipments; older ones are filled in by the refresh button.", "الطلبات الصادرة والمرتجعة يوميًا": "Outgoing and returned orders per day", "توزيع حالات الشحنات": "Shipment status distribution", "المنتج": "Product"}));let LANG='ar';try{LANG=localStorage.getItem('scanapp.lang')==='en'?'en':'ar'}catch{}
+for(const[k,v]of Object.entries({'الواجهة':'Interface','الإدارة':'Administration','الحساب':'Account'}))EN.set(k,v);
+for(const[k,v]of Object.entries({'👥 المستخدمون':'👥 Users'}))EN.set(k,v);
+for(const[k,v]of Object.entries({'🗑️ سلة المهملات':'🗑️ Trash','حذف الأوردرات المحددة نهائيًا (للمسؤول فقط)':'Permanently delete selected orders (admin only)','تحديد الكل':'Select all','كل الفترات':'All time','اليوم المحدد':'Selected day','الشهر المحدد':'Selected month','كل الأنواع':'All types','الصادر فقط':'Outgoing only','المرتجعات فقط':'Returns only','الفترة':'Period','النوع':'Type','رقم الشحنة':'Tracking no.','وقت المسح':'Scan time','العميل':'Customer','الحالة':'Status','إغلاق':'Close'}))if(!EN.has(k))EN.set(k,v);
+for(const[k,v]of Object.entries({'ادخل إلى مساحة العمل الآمنة الخاصة بك':'Access your secure workspace','نهاري':'Day','ليلي':'Night','دخان':'Smoke','بدون دخان':'No smoke','تحقق من هويتك':'Verify your identity','اكتب كود التحقق المكوّن من 4 أرقام. تم إرساله لمسؤول النظام، وهيتأكد تلقائيًا أول ما تكمله.':'Enter the 4-digit verification code sent to the system admin. It verifies automatically once complete.','لم يصلك الكود؟':"Didn't receive the code?",'إعادة الإرسال':'Resend','رجوع':'Back','الصافي':'Net','صافي الدفع':'Net payout','🔑 كلمة مرور حسابي':'🔑 My password','البريد الإلكتروني':'Email','الاسم':'Name','ليس لديك حساب؟ اطلب حساب جديد':'No account? Request one','تسجيل الدخول':'Sign in','مسؤول':'Admin','موظف':'Staff'}))EN.set(k,v);
+const T=(a,e)=>LANG==='en'?e:a,tt=a=>LANG==='en'&&EN.has(a)?EN.get(a):a;
+function loc(root){const w=document.createTreeWalker(root,4);let n;
+ while(n=w.nextNode()){const c=n.nodeValue,o=n.__o!==undefined&&c===n.__t?n.__o:c,k=o.trim();if(!EN.has(k))continue;const v=LANG==='en'?o.replace(k,()=>EN.get(k)):o;if(c!==v){n.__o=o;n.__t=v;n.nodeValue=v}}
+ for(const el of root.querySelectorAll('[title],[aria-label]'))for(const a of['title','aria-label']){const c=el.getAttribute(a);if(c==null)continue;const m=el['_'+a],o=m&&c===m[1]?m[0]:c;if(!EN.has(o))continue;const v=LANG==='en'?EN.get(o):o;if(c!==v){el['_'+a]=[o,v];el.setAttribute(a,v)}}}
+const DEF={brands:[{id:'rchive',name:'Rchive',color:'#1f6f5c',carrier:'bosta'},{id:'seven',name:'SEVEN',color:'#2b4fa3',carrier:'bosta'},{id:'jeanetics',name:'Jeanetics',color:'#7a3b8f',carrier:'bosta'}],scans:{},dups:{},active:'rchive'};
+let S={brands:[],scans:{},dups:{},active:(()=>{try{return localStorage.getItem('scanapp.active')||null}catch{return null}})(),removed:[]};
+const save=()=>{try{localStorage.setItem('scanapp.active',S.active||'')}catch{}};
+const B=()=>S.brands.find(b=>b.id===S.active)||S.brands[0]||{id:'',name:'',color:'#1f6f5c',carrier:'bosta'};
+const L=id=>S.scans[id]||(S.scans[id]=[]),D=id=>S.dups[id]||(S.dups[id]=[]);
+const cairo=iso=>new Intl.DateTimeFormat('en-CA',{timeZone:'Africa/Cairo'}).format(new Date(iso));
+const ft=iso=>new Date(iso).toLocaleString(LANG==='en'?'en-GB':'ar-EG',{timeZone:'Africa/Cairo'});
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function msg(t,k){const m=$('#msg');m.textContent=t;m.className=k}
+function beep(f,d){try{const c=new(window.AudioContext||webkitAudioContext)(),o=c.createOscillator();o.frequency.value=f;o.connect(c.destination);o.start();setTimeout(()=>{o.stop();c.close()},d)}catch{}}
+const KL={delivery:'توصيل',exchange:'استبدال',return:'مرتجع'};let view='out',lastRaw=null;
+function skin(b){const st=document.body.style;st.cssText='';const bg=b.bgType==='image'&&b.bgImg,co=b.bgType==='color'&&b.bgColor;
+ if(bg){st.backgroundImage=`url("${b.bgImg}")`;st.backgroundSize='cover';st.backgroundPosition='center';st.backgroundAttachment='fixed';st.backgroundRepeat='no-repeat'}else if(co)st.background=b.bgColor;
+ document.body.classList.toggle('hasbg',!!(bg||co));
+ const h=$('#ttl'),key=b.id+':'+(b.logo||'').length;
+ if(b.logo){if(h.dataset.l!==key){h.textContent='';const i=new Image();i.className='logo';i.alt=b.name;i.src=b.logo;h.append(i);h.dataset.l=key}}
+ else if(h.dataset.l){delete h.dataset.l;h.textContent='مسح الشحنات'}}
+const img2url=(f,max,q,png)=>new Promise((ok,no)=>{const r=new FileReader();r.onerror=no;r.onload=()=>{const i=new Image();i.onerror=no;i.onload=()=>{const k=Math.min(1,max/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=Math.round(i.width*k);c.height=Math.round(i.height*k);c.getContext('2d').drawImage(i,0,0,c.width,c.height);ok(c.toDataURL(png?'image/png':'image/jpeg',q))};i.src=r.result};r.readAsDataURL(f)});
+const nz=v=>String(v??'').toLowerCase().replace(/[٠-٩]/g,c=>'٠١٢٣٤٥٦٧٨٩'.indexOf(c)).replace(/[\u064B-\u065F\u0640]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').trim();
+const qTerms=()=>nz($('#q').value).split(/\s+/).filter(Boolean);
+function qm(s,ts){const h=nz(s.tn)+' '+nz(s.cn)+' '+String(s.cp||'').replace(/\D/g,'');
+ return ts.every(t=>{if(/^[+\d\-().]+$/.test(t)){const d=t.replace(/\D/g,'');return !!d&&(h.includes(d)||(d.length>=10&&h.includes(d.slice(-10))))}return h.includes(t)})}
+function render0(){
+ const b=B();S.active=b.id;document.documentElement.style.setProperty('--c',b.color);skin(b);
+ $('#tabs').innerHTML=S.brands.map(x=>`<button class="tab ${x.id===b.id?'on':''}" data-id="${esc(x.id)}">${esc(x.name)}</button>`).join('');
+ const all=L(b.id),today=cairo(new Date().toISOString()),ret=all.filter(s=>s.kind==='return'),out=all.filter(s=>s.kind!=='return');
+ $('#s1').textContent=out.length;$('#s2').textContent=ret.length;$('#s3').textContent=all.filter(s=>cairo(s.at)===today).length;$('#s4').textContent=D(b.id).filter(x=>!x.rz).length;
+ document.querySelectorAll('[data-v]').forEach(x=>x.classList.toggle('on',x.dataset.v===view));
+ $('#tw').hidden=view==='an';$('#an').hidden=view!=='an';$('#qw').hidden=view==='an';$('#q').placeholder=T('🔍 بحث: رقم الأوردر / اسم العميل / التليفون','🔍 Search: order no. / customer / phone');
+ if(view==='an')return an(all);
+ const ts=qTerms(),srch=ts.length>0,l=srch?all.filter(s=>qm(s,ts)):view==='ret'?ret:out;
+ $('#qc').textContent=srch?T(`${l.length} نتيجة في كل الصادر والمرتجعات`,`${l.length} result(s) across outgoing & returns`)+(l.length>200?T(' (عرض أحدث 200)',' (showing latest 200)'):''):'';$('#qx').hidden=!$('#q').value;
+ $('#rows').innerHTML=l.length?l.slice(-200).reverse().map(s=>{const k=s.kind||'delivery';return `<tr><td class="t">${esc(s.tn)}</td><td><button class="kd k-${k}" data-k="${esc(s.id)}" title="${esc((s.bt||'')+' / '+(s.st||''))} — ${T('اضغط لتغيير النوع','click to change type')}">${tt(KL[k])}</button></td><td>${esc(ft(s.at))}</td><td>${esc(s.cn||'—')}<br><small style="color:var(--mut);unicode-bidi:plaintext">${esc(s.cp||'')}</small></td><td>${esc(s.gov||'—')}</td><td>${esc(s.items??'—')}</td><td>${esc(s.desc||s.doc||'—')}</td><td>${esc(s.cod??'—')}</td><td>${esc(s.fees??'—')}</td><td><b>${(s.cod==null&&s.fees==null)?'—':((s.cod||0)-(s.fees||0)).toLocaleString('en-US',{maximumFractionDigits:2})}</b></td><td>${esc(s.st||(s.ver==='VERIFIED'?'—':'بدون تحقق'))}</td><td><button class="x" data-del="${esc(s.id)}">حذف</button></td></tr>`}).join(''):`<tr><td colspan="12">${srch?'لا توجد نتائج مطابقة للبحث.':view==='ret'?'لا توجد مرتجعات لهذا البراند.':'لا توجد شحنات لهذا البراند. ابدأ بمسح أول باركود.'}</td></tr>`;
+}
+/* فصل المنتجات: كل منتج بينتهي بـ (CODE-COLOR-SIZE) والكمية قبله x N */
+function prods(s){
+ const t=String(s.desc||s.doc||'').replace(/\s+/g,' ').trim(),out=[];if(!t)return out;
+ const cl=x=>x.replace(/^[\s,،;+|\/]+|[\s,،;+|\/]+$/g,''),
+ qn=x=>{const m=x.match(/(?:^|\s)[xX×]\s*(\d+)\s*$/);return m?[x.slice(0,m.index).trim(),+m[1]]:[x.trim(),0]};
+ const re=/(.+?)\(\s*([^()\s]+(?:\s*-\s*[^()\s]+)+)\s*\)/g;let m,last=0;
+ while((m=re.exec(t))){const[nm,n]=qn(cl(m[1]));out.push({k:(nm||'—')+' ('+m[2].replace(/\s+/g,'')+')',n:n||1});last=re.lastIndex}
+ const rest=cl(t.slice(last));
+ if(rest&&!/^[xX×]?\s*\d*$/.test(rest)){const[nm,n]=qn(rest);out.push({k:nm||rest,n:n||(out.length?1:Math.max(1,Math.abs(Number(s.items))||1))})}
+ return out}
+function prg(l){const g={};l.forEach(s=>{const ps=prods(s),tot=ps.reduce((a,p)=>a+p.n,0)||1,rt=s.kind==='return',r2=v=>Math.round(v*100)/100;
+  ps.forEach(p=>{const x=g[p.k]||(g[p.k]={o:0,r:0,it:0,co:0,fe:0}),w=p.n/tot;rt?x.r+=p.n:x.o+=p.n;x.it+=rt?-p.n:p.n;x.co=r2(x.co+(Number(s.cod)||0)*w);x.fe=r2(x.fe+(Number(s.fees)||0)*w)})});
+ return Object.entries(g).sort((a,b)=>b[1].o+b[1].r-a[1].o-a[1].r).slice(0,15)}
+const OCD=/^\s*delivered/i,OCR=/returned|rto/i,ck=s=>String(s.cp||'').replace(/\D/g,'').slice(-10)||(s.cn||'').trim()||'—';
+function outcomes(all,l){
+ const rs=new Set(all.filter(s=>s.kind==='return').map(s=>s.tn.toLowerCase())),ot=new Set(all.filter(s=>s.kind!=='return').map(s=>s.tn.toLowerCase()));
+ return l.filter(s=>s.kind!=='return'||!ot.has(s.tn.toLowerCase())).map(s=>({s,o:rs.has(s.tn.toLowerCase())||OCR.test(s.st||'')?'r':OCD.test(s.st||'')?'d':'p'}));
+}
+const nf=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
+const kc=(i,l,v,a,d)=>`<div class="kc" style="--a:${a}"><i>${i}</i><span>${l}</span><b>${v}</b>${d||''}</div>`;
+function custHtml(all,l){
+ const oc=outcomes(all,l),n=x=>oc.filter(y=>y.o===x).length,d=n('d'),r=n('r'),p=n('p'),f=d+r,pc=(a,b)=>b?Math.round(a/b*100)+'%':'—',g={};
+ oc.forEach(({s,o})=>{const k=ck(s);if(k==='—')return;const x=g[k]||(g[k]={n:s.cn,p:s.cp,t:0,d:0,r:0,q:0});if(!x.n)x.n=s.cn;x.t++;x[o==='p'?'q':o]++});
+ const cs=Object.values(g).sort($('#cs').value==='r'?(a,b)=>b.r-a.r||b.t-a.t:(a,b)=>b.t-a.t);
+ const kp=[['✅','شحنات مستلمة',d,'var(--ok)'],['↩️','مرتجعة / لم تُستلم',r,'var(--bad)'],['🚚','قيد التوصيل',p,'var(--warn)'],['🎯','نسبة الاستلام',pc(d,f),'var(--ok)'],['📉','نسبة المرتجع (من المحسوم)',pc(r,f),'var(--bad)'],['🙋','عملاء استلموا',cs.filter(c=>c.d>0).length,'var(--info)'],['🚫','عملاء لم يستلموا',cs.filter(c=>c.d===0&&c.r>0).length,'var(--bad)'],['🔁','عملاء متكررون',cs.filter(c=>c.t>1).length,'var(--info)']];
+ return{d,r,p,f,kp:kp.map(x=>kc(...x)).join(''),
+ tbl:`<h3>العملاء</h3><div class="tw"><table style="min-width:640px"><thead><tr><th>العميل</th><th>التليفون</th><th>الطلبات</th><th>استلم</th><th>مرتجع</th><th>قيد التوصيل</th><th>نسبة الاستلام</th></tr></thead><tbody>${cs.slice(0,25).map(c=>`<tr><td>${esc(c.n||'—')}</td><td style="unicode-bidi:plaintext">${esc(c.p||'—')}</td><td>${c.t}</td><td>${c.d}</td><td>${c.r}</td><td>${c.q}</td><td>${pc(c.d,c.d+c.r)}</td></tr>`).join('')||'<tr><td colspan="7">مفيش بيانات عملاء. بيانات العميل بتتسجل مع الشحنات الجديدة، والقديمة بتتكمل بزرار التحديث.</td></tr>'}</tbody></table></div>`};
+}
+function delta(cur,prev,badUp){if(prev==null)return'';const lb=T('مقارنة بالفترة السابقة','vs previous period');if(!prev&&!cur)return`<small class="dl">— ${lb}</small>`;if(!prev)return`<small class="dl">${lb}: ▲ ${T('جديد','new')}</small>`;const v=Math.round((cur-prev)/Math.abs(prev)*100),cl=v===0?'':((v>0)!==!!badUp?'up':'dn');return`<small class="dl ${cl}">${v>0?'▲':v<0?'▼':'■'} ${Math.abs(v)}% ${lb}</small>`}
+function prevOf(all,p,dv){if(p==='all')return null;if(p==='day'){const d=new Date(dv+'T00:00:00Z');d.setUTCDate(d.getUTCDate()-1);const k=d.toISOString().slice(0,10);return all.filter(s=>cairo(s.at)===k)}const[y,m]=dv.split('-').map(Number),k=new Date(Date.UTC(y,m-2,1)).toISOString().slice(0,7);return all.filter(s=>cairo(s.at).startsWith(k))}
+const hrOf=iso=>Number(new Intl.DateTimeFormat('en-GB',{timeZone:'Africa/Cairo',hour:'2-digit',hour12:false}).format(new Date(iso)))%24;
+function buckets(l,p,dv){const bk=[],ix={},add=(k,label)=>{ix[k]=bk.length;bk.push({k,label,a:0,b:0})};
+ if(p==='day')for(let h=0;h<24;h++)add(h,String(h).padStart(2,'0'));
+ else if(p==='month'){const[y,m]=dv.split('-').map(Number),n=new Date(Date.UTC(y,m,0)).getUTCDate();for(let d=1;d<=n;d++)add(dv.slice(0,7)+'-'+String(d).padStart(2,'0'),String(d))}
+ else[...new Set(l.map(s=>cairo(s.at).slice(0,7)))].sort().slice(-12).forEach(k=>add(k,k.slice(2)));
+ l.forEach(s=>{const i=ix[p==='day'?hrOf(s.at):p==='month'?cairo(s.at):cairo(s.at).slice(0,7)];if(i==null)return;s.kind==='return'?bk[i].b++:bk[i].a++});return bk}
+function barSvg2(bk){const mx=Math.max(0,...bk.flatMap(x=>[x.a,x.b]));if(!mx)return '<p class="mut">لا بيانات في الفترة دي.</p>';
+ const W=640,H=250,L=34,R=8,Tm=12,Bm=30,iw=W-L-R,ih=H-Tm-Bm,raw=Math.max(1,mx/4),pw=Math.pow(10,Math.floor(Math.log10(raw))),st=[1,2,5,10].map(m=>m*pw).find(v=>v>=raw),top=Math.ceil(mx/st)*st,n=bk.length,g=iw/n,bw=Math.max(2,Math.min(16,g*.36)),ev=Math.ceil(n/14);
+ let s=`<svg class="ch" viewBox="0 0 ${W} ${H}" role="img" aria-label="${T('الطلبات الصادرة والمرتجعة','Outgoing and returned orders')}">`;
+ for(let v=0;v<=top;v+=st){const y=Tm+ih-v/top*ih;s+=`<line class="g" x1="${L}" x2="${W-R}" y1="${y}" y2="${y}"/><text x="${L-6}" y="${y+4}" text-anchor="end">${v}</text>`}
+ bk.forEach((x,j)=>{const cx=L+g*j+g/2,ha=x.a/top*ih,hb=x.b/top*ih;
+  s+=`<g><title>${x.k} — ${T('صادر','Out')}: ${x.a} · ${T('مرتجع','Return')}: ${x.b}</title><rect x="${cx-bw-1}" y="${Tm+ih-ha}" width="${bw}" height="${ha}" rx="2" fill="var(--c)"/><rect x="${cx+1}" y="${Tm+ih-hb}" width="${bw}" height="${hb}" rx="2" fill="var(--bad)"/><rect x="${cx-g/2}" y="${Tm}" width="${g}" height="${ih}" fill="transparent"/></g>`;
+  if(j%ev===0)s+=`<text x="${cx}" y="${H-10}" text-anchor="middle">${x.label}</text>`});
+ return s+'</svg>'}
+function barSvg(days,o,r){
+ if(!days.length)return '<p class="mut">لا بيانات في الفترة دي.</p>';
+ const W=640,H=250,L=34,R=8,Tm=12,Bm=30,iw=W-L-R,ih=H-Tm-Bm,mx=Math.max(1,...days.map(d=>Math.max(o[d]||0,r[d]||0))),top=Math.max(4,Math.ceil(mx/4)*4),gw=iw/days.length,bw=Math.min(20,gw*.34);
+ let s=`<svg class="ch" viewBox="0 0 ${W} ${H}" role="img" aria-label="الطلبات الصادرة والمرتجعة يوميًا">`;
+ for(let i=0;i<=4;i++){const y=Tm+ih-ih*i/4;s+=`<line class="g" x1="${L}" x2="${W-R}" y1="${y}" y2="${y}"/><text x="${L-6}" y="${y+4}" text-anchor="end">${top*i/4}</text>`}
+ days.forEach((d,i)=>{const cx=L+gw*(i+.5);
+  [[o[d]||0,'var(--c)',-bw-1,T('صادر','Out')],[r[d]||0,'var(--bad)',1,T('مرتجع','Return')]].forEach(([v,c,dx,n])=>{const h=ih*v/top;s+=`<rect x="${cx+dx}" y="${Tm+ih-h}" width="${bw}" height="${h}" rx="3" fill="${c}"><title>${d} — ${n}: ${v}</title></rect>`+(v&&days.length<=10?`<text x="${cx+dx+bw/2}" y="${Tm+ih-h-4}" text-anchor="middle">${v}</text>`:'')});
+  s+=`<text x="${cx}" y="${H-10}" text-anchor="middle">${d.slice(5)}</text>`});
+ return s+'</svg>';
+}
+function donut(d,r,p){
+ const t=d+r+p,R=54,C=2*Math.PI*R,f=d+r;let off=0,s=`<svg class="ch" viewBox="0 0 140 140" role="img" aria-label="توزيع حالات الشحنات"><circle cx="70" cy="70" r="${R}" fill="none" stroke="var(--th)" stroke-width="18"/>`;
+ if(t)[[d,'var(--ok)'],[r,'var(--bad)'],[p,'var(--warn)']].forEach(([v,c])=>{if(!v)return;const len=C*v/t;s+=`<circle cx="70" cy="70" r="${R}" fill="none" stroke="${c}" stroke-width="18" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)"/>`;off+=len});
+ return s+`<text x="70" y="68" text-anchor="middle" style="font-size:22px;font-weight:800;fill:var(--ink)">${f?Math.round(d/f*100)+'%':'—'}</text><text x="70" y="86" text-anchor="middle" style="font-size:10px">نسبة الاستلام</text></svg>`;
+}
+const hbar=rows=>{const mx=Math.max(1,...rows.map(([,x])=>x.o+x.r));return rows.length?`<div class="hb">${rows.map(([k,x])=>`<div class="hr"><span class="n" title="${esc(k)}">${esc(k)}</span><span class="t"><u style="width:${x.o/mx*100}%;background:var(--c)"></u><u style="width:${x.r/mx*100}%;background:var(--bad)"></u></span><em>${x.o}${x.r?` <small dir="rtl" style="color:var(--bad);unicode-bidi:isolate">(${x.r} ${T('مرتجع','returned')})</small>`:''}</em></div>`).join('')}</div>`:'<p class="mut">لا بيانات في الفترة دي.</p>'};
+function an(all){
+ const p=$('#per').value,dv=sel(),m=dv.slice(0,7),br=B();
+ const l=all.filter(s=>p==='all'||(p==='day'?cairo(s.at)===dv:cairo(s.at).startsWith(m)));
+ const out=l.filter(s=>s.kind!=='return'),ret=l.filter(s=>s.kind==='return'),sm=(a,k)=>a.reduce((t,s)=>t+(Number(s[k])||0),0);
+ const pv=prevOf(all,p,dv),q=pv&&{o:pv.filter(s=>s.kind!=='return').length,r:pv.filter(s=>s.kind==='return').length,it:sm(pv,'items'),co:sm(pv,'cod'),fe:sm(pv,'fees')};
+ const kp=[['🛒','طلبات صادرة',out.length,'var(--c)',delta(out.length,q&&q.o)],['↩️','مرتجعات',ret.length,'var(--bad)',delta(ret.length,q&&q.r,1)],['📉','نسبة المرتجع',out.length?Math.round(ret.length/out.length*100)+'%':'—','var(--warn)',delta(out.length?Math.round(ret.length/out.length*100):0,q?(q.o?Math.round(q.r/q.o*100):0):null,1)],['📦','صافي القطع',nf(sm(l,'items')),'var(--info)',delta(sm(l,'items'),q&&q.it)],['💰','صافي COD',nf(sm(l,'cod')),'var(--ok)',delta(sm(l,'cod'),q&&q.co)],['🚚','صافي الشحن',nf(sm(l,'fees')),'var(--info)',delta(sm(l,'fees'),q&&q.fe)],['🏦','صافي الدفع',nf(sm(l,'cod')-sm(l,'fees')),'var(--ok)',delta(sm(l,'cod')-sm(l,'fees'),q&&(q.co-q.fe))]];
+ const grp=f=>{const g={};l.forEach(s=>{const k=f(s)||'غير محدد',x=g[k]||(g[k]={o:0,r:0,it:0,co:0,fe:0});s.kind==='return'?x.r++:x.o++;x.it+=Number(s.items)||0;x.co+=Number(s.cod)||0;x.fe+=Number(s.fees)||0});return Object.entries(g).sort((a,b)=>b[1].o+b[1].r-a[1].o-a[1].r).slice(0,15)};
+ const tb=(r,h)=>`<div class="tw"><table style="min-width:600px"><thead><tr><th>${h}</th><th>صادر</th><th>مرتجع</th><th>صافي القطع</th><th>صافي COD</th><th>صافي الشحن</th></tr></thead><tbody>${r.map(([k,x])=>`<tr><td>${esc(k)}</td><td>${x.o}</td><td>${x.r}</td><td>${x.it}</td><td>${nf(x.co)}</td><td>${nf(x.fe)}</td></tr>`).join('')||'<tr><td colspan="6">لا بيانات في الفترة دي.</td></tr>'}</tbody></table></div>`;
+ const cu=custHtml(all,l),dO={},dR={};
+ l.forEach(s=>{const d=cairo(s.at),t=s.kind==='return'?dR:dO;t[d]=(t[d]||0)+1});
+ const dk=[...new Set([...Object.keys(dO),...Object.keys(dR)])].sort().slice(-14);
+ const gv=grp(s=>s.gov),pr=prg(l),pl=p==='month'?T('شهر ','Month ')+m:p==='day'?T('يوم ','Day ')+dv:T('كل الفترات','All periods');
+ $('#anb').innerHTML=`<div class="dh"><h2>لوحة التحليلات</h2><p>${esc(br.name)} · ${pl}</p></div>
+<div class="kg">${kp.map(x=>kc(...x)).join('')}</div>
+<div class="cg"><div class="cc"><h3>الصادر مقابل المرتجع يوميًا</h3><div class="lg"><span><i style="background:var(--c)"></i>صادر</span><span><i style="background:var(--bad)"></i>مرتجع</span></div>${barSvg2(buckets(l,p,dv))}</div>
+<div class="cc"><h3>حالة الشحنات الصادرة</h3><div class="dn">${donut(cu.d,cu.r,cu.p)}<div class="dnl"><div><i style="background:var(--ok)"></i>مستلمة<b>${cu.d}</b></div><div><i style="background:var(--bad)"></i>مرتجعة<b>${cu.r}</b></div><div><i style="background:var(--warn)"></i>قيد التوصيل<b>${cu.p}</b></div></div></div>${cu.p&&!cu.f?'<p class="mut" style="font-size:13px">الحالات لسه ماتحدثتش. اضغط "تحديث حالات الشحنات من بوسطة".</p>':''}</div></div>
+<h3>الاستلام والعملاء</h3><div class="kg">${cu.kp}</div>
+<div class="cg cg2"><div class="cc"><h3>أعلى المحافظات</h3><div class="lg"><span><i style="background:var(--c)"></i>صادر</span><span><i style="background:var(--bad)"></i>مرتجع</span></div>${hbar(gv.slice(0,8))}</div><div class="cc"><h3>أعلى المنتجات</h3><div class="lg"><span><i style="background:var(--c)"></i>صادر</span><span><i style="background:var(--bad)"></i>مرتجع</span></div>${hbar(pr.slice(0,8))}</div></div>
+<h3>المحافظات</h3>${tb(gv,'المحافظة')}<h3>المنتجات (حسب وصف الشحنة)</h3>${tb(pr,'المنتج')}${cu.tbl}`;
+}
+const num=v=>Number.isFinite(Number(v))&&v!==''&&v!=null?Number(v):null;
+const find=(o,k,n=0)=>{if(!o||typeof o!=='object'||n>6)return;if(o[k]&&typeof o[k]==='object')return o[k];for(const v of Object.values(o)){const r=find(v,k,n+1);if(r)return r}};
+const red=o=>Array.isArray(o)?o.map(red):o&&typeof o==='object'?Object.fromEntries(Object.entries(o).map(([k,v])=>[k,/first|last|full|phone|mail|line|note|floor|apart|build|lat|lng|long/i.test(k)&&typeof v!=='object'?'[محجوب]':red(v)])):o;
+const tx=v=>typeof v==='string'?v:'';
+const ERRS={
+ no_key:['مفتاح الـ API غير مضاف لهذا البراند. اطلب من المسؤول إضافته في الإعدادات.','The API key is missing for this brand. Ask the admin to add it in settings.'],
+ no_tpl:['رابط التحقق غير مضاف في إعدادات هذا البراند.','The verification URL is missing in this brand\'s settings.'],
+ net:['تعذر الاتصال بالخادم. لم تُسجل.','Could not reach the server. Not recorded.'],
+ not_found:['شركة الشحن لم تجد هذه الشحنة. لم تُسجل.','The carrier did not find this shipment. Not recorded.'],
+ key_rejected:['مفتاح الـ API مرفوض من شركة الشحن. راجع المفتاح في الإعدادات.','The carrier rejected the API key. Check it in settings.'],
+ http:['فشل التحقق من شركة الشحن. لم تُسجل.','Carrier verification failed. Not recorded.'],
+ no_data:['بوسطة لم ترجع بيانات للشحنة. لم تُسجل.','Bosta returned no data for this shipment. Not recorded.'],
+ bad_tn:['رقم الشحنة غير صالح.','Invalid tracking number.'],
+ forbidden:['ليس لديك صلاحية لهذا الإجراء أو هذا البراند.','You do not have permission for this action or brand.'],
+ unauthorized:['انتهت الجلسة. سجّل الدخول من جديد.','Session expired. Please sign in again.'],
+ no_brand:['البراند غير موجود على السيرفر. احفظ الإعدادات أولًا.','Brand not found on the server. Save settings first.'],
+ no_row:['الشحنة غير موجودة.','Shipment not found.'],
+ fn_missing:['الـ Edge Function غير منشورة على Supabase.','The Edge Function is not deployed on Supabase.'],
+ supabase_config_missing:['إعدادات الـ Function ناقصة. راجع Logs في Supabase.','The Function is misconfigured. Check the Logs in Supabase.']};
+const errText=(c,d)=>{const e=ERRS[c];return e?T(e[0],e[1])+(c==='http'&&d&&Number.isFinite(d.status)?` (HTTP ${d.status})`:''):T('حدث خطأ في السيرفر: ','Server error: ')+c};
+async function callFn(body){
+ const{data,error}=await sb.functions.invoke('scan',{body});
+ if(error){let d=null;const st=error.context&&error.context.status;try{d=await error.context.json()}catch{}return{error:(d&&d.error)||(st===401?'unauthorized':st===403?'forbidden':st===404?'fn_missing':'net')}}
+ return data||{error:'net'}}
+const fromDb=r=>({id:r.id,tn:r.tn,at:r.at,ver:r.ver,kind:r.kind,gov:r.gov||'',cod:r.cod==null?null:+r.cod,fees:r.fees==null?null:+r.fees,items:r.items,desc:r.descr||'',doc:r.doc||'',st:r.st||'',bt:r.bt||'',cn:r.cn||'',cp:r.cp||'',chk:r.chk||''});
+async function pageAll(mk){let o=0,a=[];for(;;){const{data,error}=await mk().range(o,o+999);if(error)throw error;a=a.concat(data);if(data.length<1000)return a;o+=1000}}
+async function loadBrand(id){const[a,d]=await Promise.all([pageAll(()=>sb.from('scans').select('*').eq('brand_id',id).order('at').order('id')),pageAll(()=>sb.from('dups').select('*').eq('brand_id',id).order('at').order('id'))]);S.scans[id]=a.map(fromDb);S.dups[id]=d.map(x=>({id:x.id,tn:x.tn,kind:x.kind,at:x.at,rz:x.rz}))}
+async function loadBrands(){
+ const{data,error}=await sb.from('brands').select('*');if(error)throw error;
+ S.brands=data.map(r=>{const c=r.cfg||{};return{id:r.id,name:r.name||r.id,color:/^#[0-9a-f]{6}$/i.test(c.color||'')?c.color:'#1f6f5c',carrier:c.carrier||'bosta',tpl:c.tpl||'',pre:c.pre||'',bgType:c.bgType||'',bgColor:c.bgColor||'',bgImg:c.bgImg||'',logo:c.logo||'',hasKey:!!r.has_key,sort:Number.isFinite(c.sort)?c.sort:999}}).sort((a,b)=>a.sort-b.sort||a.name.localeCompare(b.name));
+ if(!S.brands.some(b=>b.id===S.active))S.active=S.brands[0]?S.brands[0].id:null;save()}
+async function migrateKeys(loc){if(!isAdm())return;let n=0;
+ for(const b of S.brands){const l=loc.find(x=>x.id===b.id);if(!l||b.hasKey||!l.apiKey)continue;
+  const cfg={color:l.color||b.color,carrier:l.carrier||b.carrier,tpl:l.tpl||'',pre:l.pre||'',bgType:l.bgType||'',bgColor:l.bgColor||'',bgImg:l.bgImg||'',logo:l.logo||'',sort:b.sort||0};
+  let r=await sb.from('brands').upsert({id:b.id,name:l.name||b.name,cfg});if(r.error)continue;
+  r=await sb.rpc('set_brand_key',{p_brand:b.id,p_key:l.apiKey});if(!r.error)n++}
+ if(n)await loadBrands()}
+function stripLocalKeys(){try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.brands&&o.brands.some(b=>'apiKey' in b||'proxy' in b)){o.brands.forEach(b=>{delete b.apiKey;delete b.proxy});localStorage.setItem(KEY,JSON.stringify(o))}}catch{}}
+function startSync(){clearInterval(syncT);syncT=setInterval(async()=>{if(document.hidden||!ME||document.body.classList.contains('locked'))return;const b=B();if(!b.id)return;try{await loadBrand(b.id);render()}catch{}},30000)}
+async function handle(b,tn){
+ if(!/^[A-Za-z0-9\-_.]{1,100}$/.test(tn)){msg(T('رقم الشحنة غير صالح: ','Invalid tracking number: ')+tn,'err');beep(220,400);return}
+ const d=await callFn({brand:b.id,tn});
+ if(d.error){msg(errText(d.error,d),'err');beep(220,400);return}
+ if(d.raw)lastRaw=d.raw;
+ if(d.status==='duplicate'){const k=(d.dup&&d.dup.kind)||'delivery',e=d.existing;D(b.id).push({id:d.dup&&d.dup.id,tn,kind:k,at:(d.dup&&d.dup.at)||new Date().toISOString(),rz:false});render();
+  msg(T(`مكررة: ${tn} مسجلة قبل كده كـ${tt(KL[k])} في ${b.name} (${ft(e&&e.at)}). لم تُضف.`,`Duplicate: ${tn} was already recorded as ${tt(KL[k])} in ${b.name} (${ft(e&&e.at)}). Not added.`),'warn');beep(220,400);return}
+ const row=fromDb(d.row);if(!L(b.id).some(x=>x.id===row.id))L(b.id).push(row);render();
+ const k=row.kind,miss=row.ver==='VERIFIED'&&b.carrier==='bosta'&&row.items==null?T(' ⚠ بوسطة لم ترجع عدد القطع (اضغط "نسخ رد بوسطة" وابعته للتشخيص).',' ⚠ Bosta did not return the items count (press "Copy last Bosta response" and send it for debugging).'):'';
+ msg(T(`تمت إضافة ${tn} (${tt(KL[k])}) إلى ${b.name}`,`Added ${tn} (${tt(KL[k])}) to ${b.name}`)+(row.ver==='VERIFIED'?T(' بعد التحقق.',' after verification.'):T(' (بدون تحقق).',' (unverified).'))+miss,miss||k==='return'||row.ver!=='VERIFIED'?'warn':'ok');beep(880,90);
+}
+let chain=Promise.resolve();
+$('#tn').addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();const tn=e.target.value.trim();e.target.value='';if(!tn)return;const b=B();chain=chain.then(()=>handle(b,tn))});
+/* ===== مسح بكاميرا الموبايل ===== */
+EN.set('مسح بالكاميرا','Scan with camera');for(const[k,v]of Object.entries({'بحث':'Search','مسح البحث':'Clear search','لا توجد نتائج مطابقة للبحث.':'No results match your search.'}))EN.set(k,v);
+const camBtn=$('#cam');let camStream=null,camOn=false,camLast='',camAt=0,camDet=null,camRd=null;
+if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)camBtn.hidden=false;
+const loadZX=()=>window.ZXing?Promise.resolve():new Promise((ok,no)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js';s.onload=ok;s.onerror=()=>no(new Error('zx'));document.head.appendChild(s)});
+function camHit(code){code=String(code||'').trim();const now=Date.now();if(!code||(code===camLast&&now-camAt<3000))return;camLast=code;camAt=now;if(navigator.vibrate)navigator.vibrate(60);const b=B();
+ chain=chain.then(()=>handle(b,code)).then(()=>{const m=$('#msg'),s=$('#cams');s.textContent=m.textContent;s.className=m.className})}
+async function camOpen(){
+ const st=$('#cams'),v=$('#camv');st.textContent='';st.className='';$('#camo').hidden=false;camOn=true;camLast='';
+ try{camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},audio:false})}
+ catch{st.textContent=T('تعذر تشغيل الكاميرا. اسمح بالوصول للكاميرا من إعدادات المتصفح (والموقع لازم يكون https).','Could not start the camera. Allow camera access in the browser settings (the site must use https).');st.className='err';return}
+ if('BarcodeDetector' in window){try{camDet=new BarcodeDetector({formats:['code_128','code_39','ean_13','ean_8','upc_a','itf','codabar','qr_code']})}catch{camDet=null}}
+ if(camDet){v.srcObject=camStream;await v.play().catch(()=>{});const loop=async()=>{if(!camOn)return;try{const r=await camDet.detect(v);if(r.length)camHit(r[0].rawValue)}catch{}setTimeout(loop,150)};loop();return}
+ try{await loadZX();const Z=window.ZXing;camRd=new Z.BrowserMultiFormatReader(new Map([[Z.DecodeHintType.TRY_HARDER,true]]));camRd.decodeFromStream(camStream,v,r=>{if(r&&camOn)camHit(r.getText())})}
+ catch{st.textContent=T('تعذر تحميل قارئ الباركود. تأكد من الاتصال بالإنترنت.','Could not load the barcode reader. Check your connection.');st.className='err'}
+}
+function camClose(){camOn=false;try{camRd&&camRd.reset()}catch{}camRd=null;if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null}$('#camv').srcObject=null;$('#camo').hidden=true;if(!matchMedia('(pointer:coarse)').matches)$('#tn').focus()}
+camBtn.onclick=camOpen;$('#camx').onclick=camClose;
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&camOn)camClose()});
+
+$('#tabs').onclick=e=>{const id=e.target.dataset.id;if(id){S.active=id;save();render();$('#msg').className='';$('#tn').focus()}};
+$('#rows').onclick=async e=>{const id=e.target.dataset.del;if(!id||!isAdm())return;const b=B(),s=L(b.id).find(x=>x.id===id);
+ if(s&&confirm(T(`حذف الشحنة ${s.tn} من ${b.name}؟`,`Delete shipment ${s.tn} from ${b.name}?`))){const{data,error}=await sb.from('scans').delete().eq('id',id).select('id');
+  if(error||!data||!data.length){alert(T('تعذر الحذف.','Could not delete.'));return}S.scans[b.id]=L(b.id).filter(x=>x.id!==id);render()}};
+/* ===== سلة المهملات (للمسؤول فقط): حذف الأوردرات المحددة ===== */
+const TR={sel:new Set(),f:[],cap:300,busy:false,bid:''};
+function trFilter(){
+ const all=L(TR.bid).slice().reverse(),p=$('#trp').value,k=$('#trk').value,ts=nz($('#trq').value).split(/\s+/).filter(Boolean),d=sel();
+ return all.filter(s=>{const c=cairo(s.at);
+  if(p==='d'&&c!==d)return false;
+  if(p==='m'&&c.slice(0,7)!==d.slice(0,7))return false;
+  if(k==='out'&&s.kind==='return')return false;
+  if(k==='ret'&&s.kind!=='return')return false;
+  return !ts.length||qm(s,ts)})}
+function trDraw(){
+ const have=new Set(L(TR.bid).map(x=>x.id));[...TR.sel].forEach(i=>{if(!have.has(i))TR.sel.delete(i)});
+ const f=TR.f=trFilter(),shown=f.slice(0,TR.cap),n=TR.sel.size;
+ $('#trq').placeholder=T('🔍 بحث: رقم الأوردر / اسم العميل / التليفون','🔍 Search: order no. / customer / phone');
+ $('#trr').innerHTML=shown.length?shown.map(s=>{const k=s.kind||'delivery';return `<tr><td><input type="checkbox" data-t="${esc(s.id)}" ${TR.sel.has(s.id)?'checked':''} aria-label="${esc(s.tn)}"></td><td class="t">${esc(s.tn)}</td><td><span class="kd k-${k}">${tt(KL[k])}</span></td><td>${esc(ft(s.at))}</td><td>${esc(s.cn||'—')}</td><td>${esc(s.st||'—')}</td></tr>`}).join(''):`<tr><td colspan="6">${T('لا توجد أوردرات مطابقة.','No matching orders.')}</td></tr>`;
+ const a=$('#tra');a.checked=f.length>0&&n===f.length;a.indeterminate=n>0&&n<f.length;a.disabled=!f.length;
+ $('#trn').textContent=T(`المحدد ${n} من ${f.length}`,`Selected ${n} of ${f.length}`)+(f.length>TR.cap?T(` — معروض أحدث ${TR.cap} (تحديد الكل يشمل كل النتائج)`,` — showing latest ${TR.cap} ("Select all" covers every result)`):'');
+ const x=$('#trx');x.textContent=T(`🗑️ حذف المحدد (${n})`,`🗑️ Delete selected (${n})`);x.disabled=!n||TR.busy}
+function trOpen(o={}){
+ if(!isAdm()||!sb)return-1;const b=B();if(!b.id)return 0;
+ TR.bid=b.id;TR.sel.clear();TR.busy=false;
+ $('#trb').textContent=b.name;$('#trm').textContent='';$('#trm').className='trm';
+ $('#trp').value=o.p||'a';$('#trk').value=o.k||'all';$('#trq').value=o.q||'';
+ TR.f=trFilter();if(o.all)TR.f.forEach(s=>TR.sel.add(s.id));
+ trDraw();if(!$('#trd').open)$('#trd').showModal();return TR.sel.size}
+async function trDelete(ids,bid){
+ if(!isAdm()||!sb)return{done:0,fail:ids.length,err:'forbidden'};
+ const gone=new Set();let err='';
+ for(let i=0;i<ids.length;i+=50){
+  const{data,error}=await sb.from('scans').delete().in('id',ids.slice(i,i+50)).select('id');
+  if(error){err=error.message||'error';break}
+  (data||[]).forEach(r=>gone.add(r.id))}
+ if(gone.size)S.scans[bid]=L(bid).filter(x=>!gone.has(x.id));
+ render();return{done:gone.size,fail:ids.length-gone.size,err}}
+$('#tr').onclick=()=>{trOpen()};
+$('#trc').onclick=()=>$('#trd').close();
+['#trp','#trk'].forEach(i=>$(i).onchange=()=>{TR.sel.clear();trDraw()});
+$('#trq').oninput=()=>{TR.sel.clear();trDraw()};
+$('#tra').onchange=e=>{TR.sel.clear();if(e.target.checked)TR.f.forEach(s=>TR.sel.add(s.id));trDraw()};
+$('#trr').onchange=e=>{const id=e.target.dataset.t;if(!id)return;e.target.checked?TR.sel.add(id):TR.sel.delete(id);trDraw()};
+$('#trx').onclick=async()=>{
+ if(!isAdm()||TR.busy)return;const ids=[...TR.sel],b=S.brands.find(x=>x.id===TR.bid)||B();if(!ids.length)return;
+ if(!confirm(T(`سيتم حذف ${ids.length} أوردر من ${b.name} نهائيًا ولا يمكن التراجع. متأكد؟`,`${ids.length} order(s) will be permanently deleted from ${b.name}. This cannot be undone. Continue?`)))return;
+ TR.busy=true;trDraw();
+ const r=await trDelete(ids,TR.bid);TR.busy=false;TR.sel.clear();trDraw();
+ const m=$('#trm');m.className='trm '+(r.fail?'bad':'ok');
+ m.textContent=r.fail?T(`تم حذف ${r.done} وتعذر حذف ${r.fail}${r.err?': '+r.err:''}.`,`Deleted ${r.done}, failed ${r.fail}${r.err?': '+r.err:''}.`):T(`تم حذف ${r.done} أوردر.`,`Deleted ${r.done} order(s).`)};
+
+function dlf(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+const sel=()=>$('#dd').value||cairo(new Date().toISOString());
+const lbl=()=>{$('#dl').textContent=$('#dm').value==='m'?'📥 تحميل تقرير الشهر Excel':'📥 تحميل تقرير اليوم Excel'};
+const loadXL=()=>window.ExcelJS?Promise.resolve():new Promise((ok,no)=>{const sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js';sc.onload=ok;sc.onerror=()=>no(new Error('تعذر تحميل مكتبة Excel. تأكد من اتصال الإنترنت وحاول تاني.'));document.head.appendChild(sc)});
+const tm=iso=>new Intl.DateTimeFormat('en-GB',{timeZone:'Africa/Cairo',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(iso));
+const XC=[['#',6],['رقم الشحنة',20],['النوع',11],['التاريخ',13],['الوقت',9],['العميل',24],['التليفون',16],['المحافظة',16],['القطع',9],['الوصف',32],['COD',13],['الشحن',12],['الحالة',18],['التحقق',13]];
+function sheet(wb,name,title,rows,sub,color){
+ const n=XC.length,fill=a=>({type:'pattern',pattern:'solid',fgColor:{argb:a}}),bd={style:'thin',color:{argb:'FFD0D5CC'}},border={top:bd,left:bd,bottom:bd,right:bd};
+ const ws=wb.addWorksheet(name,{views:[{rightToLeft:LANG!=='en',state:'frozen',ySplit:4,showGridLines:false}],properties:{tabColor:{argb:color}},pageSetup:{orientation:'landscape',fitToPage:true,fitToWidth:1,fitToHeight:0}});
+ ws.columns=XC.map(([,w])=>({width:w}));
+ ws.mergeCells(1,1,1,n);const t=ws.getCell(1,1);t.value=title;t.font={size:16,bold:true,color:{argb:'FFFFFFFF'}};t.fill=fill(color);t.alignment={horizontal:'center',vertical:'middle'};ws.getRow(1).height=34;
+ ws.mergeCells(2,1,2,n);const u=ws.getCell(2,1);u.value=sub;u.font={size:11,color:{argb:'FF555555'}};u.alignment={horizontal:'center',vertical:'middle'};ws.getRow(2).height=22;ws.getRow(3).height=6;
+ const hr=ws.getRow(4);hr.height=26;XC.forEach(([h],i)=>{const c=hr.getCell(i+1);c.value=tt(h);c.font={bold:true,color:{argb:'FFFFFFFF'}};c.fill=fill('FF26332C');c.alignment={horizontal:'center',vertical:'middle',wrapText:true};c.border=border});
+ if(!rows.length){ws.mergeCells(5,1,5,n);const c=ws.getCell(5,1);c.value=tt('لا توجد بيانات في هذه الفترة');c.alignment={horizontal:'center',vertical:'middle'};c.font={italic:true,color:{argb:'FF777777'}};ws.getRow(5).height=26;return}
+ rows.forEach((x,i)=>{const r=ws.getRow(5+i),ab=v=>v==null?null:Math.abs(v),v=[i+1,x.tn,tt(KL[x.kind||'delivery']),cairo(x.at),tm(x.at),x.cn||'',x.cp?String(x.cp):'',x.gov||'',ab(x.items),x.desc||x.doc||'',ab(x.cod),ab(x.fees),x.st||'',x.ver==='VERIFIED'?tt('تم التحقق'):tt('بدون تحقق')];
+  r.height=20;v.forEach((val,j)=>{const c=r.getCell(j+1);c.value=val;c.border=border;c.alignment={horizontal:j===5||j===9?'right':'center',vertical:'middle',wrapText:j===9};if(i%2)c.fill=fill('FFF3F5F1')});
+  r.getCell(9).numFmt='0';r.getCell(11).numFmt='#,##0.00';r.getCell(12).numFmt='#,##0.00'});
+ const last=4+rows.length,tr=ws.getRow(last+1),sum=(k,col)=>({formula:`SUM(${col}5:${col}${last})`,result:rows.reduce((a,x)=>a+Math.abs(Number(x[k])||0),0)});
+ ws.mergeCells(last+1,1,last+1,8);tr.getCell(1).value=T(`الإجمالي (${rows.length} شحنة)`,`Total (${rows.length} shipments)`);
+ tr.getCell(9).value=sum('items','I');tr.getCell(11).value=sum('cod','K');tr.getCell(12).value=sum('fees','L');
+ tr.height=26;for(let j=1;j<=n;j++){const c=tr.getCell(j);c.font={bold:true,size:12};c.fill=fill('FFE3E7DF');c.border={top:{style:'medium',color:{argb:color}},bottom:{style:'medium',color:{argb:color}},left:bd,right:bd};c.alignment={horizontal:'center',vertical:'middle'}}
+ tr.getCell(9).numFmt='0';tr.getCell(11).numFmt=tr.getCell(12).numFmt='#,##0.00';
+ ws.autoFilter={from:{row:4,column:1},to:{row:last,column:n}};
+}
+async function xlsx(){
+ const bt=$('#dl'),k=$('#dm').value,isM=k==='m',b=B(),d=sel(),m=d.slice(0,7),f=x=>isM?cairo(x.at).startsWith(m):cairo(x.at)===d;
+ const rows=L(b.id).filter(f).sort((p,q)=>p.at.localeCompare(q.at)),du=D(b.id).filter(f),sale=rows.filter(x=>x.kind!=='return'),ret=rows.filter(x=>x.kind==='return');
+ bt.disabled=true;
+ try{await loadXL();
+  const wb=new ExcelJS.Workbook();wb.creator='مسح الشحنات';wb.created=new Date();
+  const col=/^#[0-9a-f]{6}$/i.test(b.color||'')?'FF'+b.color.slice(1).toUpperCase():'FF1F6F5C',sub=`${b.name}   |   ${isM?T('شهر ','Month ')+m:T('يوم ','Day ')+d}   |   ${T('تاريخ التصدير','Exported')}: ${ft(new Date().toISOString())}`;
+  sheet(wb,tt('مبيعات'),T(`تقرير المبيعات — ${b.name}`,`Sales report — ${b.name}`),sale,sub+`   |   ${T('محاولات مكررة','Duplicate attempts')}: ${du.length}`,col);
+  sheet(wb,tt('مرتجعات'),T(`تقرير المرتجعات — ${b.name}`,`Returns report — ${b.name}`),ret,sub,'FFA52A2A');
+  const buf=await wb.xlsx.writeBuffer();
+  dlf(`${isM?'Monthly':'Daily'}_${b.name}_${isM?m:d}.xlsx`,buf,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+  msg(T(`تم تجهيز التقرير: ${sale.length} مبيعات و${ret.length} مرتجعات.`,`Report ready: ${sale.length} sales and ${ret.length} returns.`),'ok');
+ }catch(e){msg(e.message||'تعذر إنشاء ملف Excel.','err')}
+ bt.disabled=false;
+}
+$('#dl').onclick=xlsx;
+$('#dz').onclick=async()=>{const b=B(),n=D(b.id).filter(x=>!x.rz).length;if(!n)return;
+ if(confirm(T(`تصفير عداد المحاولات المكررة (${n}) لـ ${b.name}؟ التقارير المحفوظة لن تتأثر.`,`Reset the duplicate attempts counter (${n}) for ${b.name}? Saved reports are not affected.`))){const{error}=await sb.rpc('app_reset_dups',{p_brand:b.id});
+  if(error){alert(T('تعذر التصفير: ','Could not reset: ')+error.message);return}D(b.id).forEach(x=>{x.rz=true});render()}};
+$('#dbg').onclick=()=>{if(!lastRaw)return msg('امسح شحنة بوسطة حقيقية الأول، وبعدين اضغط الزرار.','warn');navigator.clipboard.writeText(JSON.stringify(red(lastRaw),null,1)).then(()=>msg('تم نسخ رد بوسطة (بعد حجب بيانات العميل). الصقه في الشات.','ok'),()=>msg('تعذر النسخ.','err'))};
+document.querySelector('.vt').onclick=e=>{if(e.target.dataset.v){view=e.target.dataset.v;render();$('#tn').focus()}};$('#per').onchange=$('#cs').onchange=$('#dd').onchange=render;$('#dm').onchange=lbl;
+let qT=0;$('#q').addEventListener('input',()=>{clearTimeout(qT);qT=setTimeout(render,120)});
+$('#q').addEventListener('keydown',e=>{if(e.key==='Escape'){$('#q').value='';render();$('#tn').focus()}});
+$('#qx').onclick=()=>{$('#q').value='';render();$('#tn').focus()};
+let rfBusy=false;
+$('#rf').onclick=async()=>{
+ if(rfBusy)return;const b=B(),st=$('#rfs'),rs=new Set(L(b.id).filter(s=>s.kind==='return').map(s=>s.tn.toLowerCase()));
+ const todo=L(b.id).filter(s=>s.kind!=='return'&&s.ver==='VERIFIED'&&!rs.has(s.tn.toLowerCase())&&!OCD.test(s.st||'')&&!OCR.test(s.st||'')).sort((a,c)=>(a.chk||'').localeCompare(c.chk||'')).slice(0,100);
+ if(!todo.length){st.textContent='كل الشحنات محدّثة (مستلمة أو مرتجعة).';return}
+ rfBusy=true;let ok=0,bad=0;
+ for(const s of todo){st.textContent=T(`جاري التحديث ${ok+bad+1}/${todo.length}…`,`Refreshing ${ok+bad+1}/${todo.length}…`);
+   try{const d=await callFn({mode:'refresh',brand:b.id,id:s.id});if(d.error)throw 0;Object.assign(s,fromDb(d.row));ok++}catch{bad++}
+  s.chk=new Date().toISOString();await new Promise(r=>setTimeout(r,250))}
+ save();rfBusy=false;st.textContent=T(`تم تحديث ${ok} شحنة`,`Updated ${ok} shipments`)+(bad?T(` وفشل ${bad}`,` and ${bad} failed`):'')+(todo.length===100?T(' — اضغط تاني لتحديث الباقي.',' — press again to update the rest.'):'.');render()};
+$('#rows').addEventListener('click',async e=>{const id=e.target.dataset.k;if(!id||!(isAdm()||(ME&&ME.perms.edit)))return;const s=L(B().id).find(x=>x.id===id);if(!s)return;
+ const{data,error}=await sb.rpc('app_cycle_kind',{p_id:id});if(error){alert(error.code==='23505'?T('يوجد سجل بنفس الرقم والنوع بالفعل.','A record with the same number and type already exists.'):T('تعذر تغيير النوع: ','Could not change the type: ')+error.message);return}
+ Object.assign(s,fromDb(data));render()});
+const fld=(i,k,l,v,t='text',h='',c='')=>`<div class="f"><label>${l}</label><input type="${t}" class="${c}" data-i="${i}" data-k="${k}" value="${esc(v||'')}">${h?`<small>${h}</small>`:''}</div>`;
+function cfgRows(){$('#bl').innerHTML=S.brands.map((b,i)=>`<fieldset><legend>${esc(b.name)}</legend>${fld(i,'name','اسم البراند',b.name)}${fld(i,'color','اللون',b.color,'color')}
+<div class="f"><label>خلفية الموقع</label><select data-i="${i}" data-k="bgType"><option value="" ${!b.bgType?'selected':''}>بدون (الافتراضي)</option><option value="color" ${b.bgType==='color'?'selected':''}>لون</option><option value="image" ${b.bgType==='image'?'selected':''}>صورة</option></select></div>
+${b.bgType==='color'?fld(i,'bgColor','لون الخلفية',b.bgColor||'#eceee8','color'):''}
+${b.bgType==='image'?`<div class="f"><label>صورة الخلفية</label><input type="file" accept="image/*" data-up="bgImg" data-i="${i}">${b.bgImg?`<div class="pv"><img src="${esc(b.bgImg)}" alt=""><button type="button" data-clr="bgImg" data-i="${i}">إزالة الصورة</button></div>`:''}</div>`:''}
+<div class="f"><label>لوجو البراند</label><input type="file" accept="image/*" data-up="logo" data-i="${i}"><small>يظهر مكان عنوان "مسح الشحنات" أعلى الصفحة.</small>${b.logo?`<div class="pv"><img src="${esc(b.logo)}" alt=""><button type="button" data-clr="logo" data-i="${i}">إزالة اللوجو</button></div>`:''}</div>
+<div class="f"><label>شركة الشحن</label><select data-i="${i}" data-k="carrier"><option value="bosta" ${b.carrier==='bosta'?'selected':''}>Bosta (بوسطة)</option><option value="custom" ${b.carrier==='custom'?'selected':''}>شركة أخرى (رابط مخصص)</option><option value="none" ${b.carrier==='none'?'selected':''}>بدون تحقق</option></select></div>
+<div class="f"><label>مفتاح الـ API لهذا البراند</label><input type="password" class="l" data-i="${i}" data-k="newKey" autocomplete="new-password" placeholder="${b.hasKey?'••••••••':''}"><small>${b.hasKey?'✓ المفتاح محفوظ على السيرفر ولا يظهر في المتصفح. اكتب مفتاحًا جديدًا لاستبداله.':'يُحفظ على السيرفر فقط ولا يظهر في المتصفح بعد الحفظ.'}</small><div><button type="button" data-probe="${i}">اختبار الربط</button></div></div>
+${fld(i,'tpl','رابط التحقق (للشركة الأخرى فقط)',b.tpl,'text','مثال: https://api.example.com/track/{tracking}','l')}${fld(i,'pre','بادئة المفتاح (مثال: Bearer )',b.pre,'text','','l')}
+
+${S.brands.length>1?`<button type="button" data-rm="${i}">حذف البراند</button>`:''}</fieldset>`).join('')}
+function gate(){if(!ME)return;const a=isAdm(),c=p=>a||!!ME.perms[p];
+ document.querySelector('.sc').hidden=!c('scan')||!S.brands.length;document.querySelector('[data-v=an]').hidden=!c('analytics');
+ $('#dl').hidden=!c('export');$('#rf').hidden=!c('refresh');$('#dz').hidden=!c('reset_dups');$('#dbg').hidden=!a;$('#tr').hidden=!a;
+ document.querySelectorAll('[data-del]').forEach(b=>{b.hidden=!a});document.querySelectorAll('[data-k]').forEach(b=>{if(!c('edit'))b.disabled=true})}
+function render(){if(ME&&!isAdm()&&!ME.perms.analytics&&view==='an')view='out';render0();gate()}
+function pwAsk(title){return new Promise(res=>{
+ const d=$('#pwd'),f=$('#pwf'),e=$('#pwe');$('#pwt').textContent=title;$('#pw2w').hidden=false;$('#pw1').value=$('#pw2').value='';e.textContent='';
+ const done=v=>{f.onsubmit=null;$('#pwx').onclick=null;d.onclose=null;if(d.open)d.close();res(v)};
+ f.onsubmit=ev=>{ev.preventDefault();const a=$('#pw1').value;
+  if(a.length<8){e.textContent=T('كلمة المرور لازم تكون 8 حروف على الأقل.','Password must be at least 8 characters.');return}
+  if(a!==$('#pw2').value){e.textContent=T('التأكيد غير مطابق.','Confirmation does not match.');return}done(a)};
+ $('#pwx').onclick=()=>done(null);d.onclose=()=>done(null);d.showModal();$('#pw1').focus()})}
+$('#cpw').onclick=async()=>{if(!sb)return;const p=await pwAsk(T('كلمة مرور جديدة لحسابك','New password for your account'));if(!p)return;
+ const{error}=await sb.auth.updateUser({password:p});msg(error?T('تعذر تغيير كلمة المرور: ','Could not change the password: ')+error.message:T('تم تغيير كلمة المرور.','Password changed.'),error?'err':'ok')};
+$('#cf').onclick=()=>{if(!isAdm())return;S.removed=[];savedCfg=false;cfgRows();$('#dlg').showModal()};
+$('#add').onclick=()=>{readCfg();const n=prompt(T('اسم البراند الجديد؟','New brand name?'));if(!n)return;S.brands.push({id:'b'+Date.now().toString(36),name:n.trim(),color:'#555555',carrier:'bosta'});cfgRows()};
+$('#bl').onclick=async e=>{const c=e.target.dataset.clr;if(c){readCfg();delete S.brands[e.target.dataset.i][c];cfgRows();return}
+ const pi=e.target.dataset.probe;
+ if(pi!=null){readCfg();const b=S.brands[pi];
+  if(b.newKey&&b.newKey.trim()){alert(T('احفظ المفتاح الجديد بزرار "حفظ" الأول ثم اختبر الربط.','Save the new key with "Save" first, then test the connection.'));return}
+  if(!b.hasKey){alert(T('اكتب مفتاح الـ API واضغط "حفظ" الأول.','Enter the API key and press "Save" first.'));return}
+  e.target.disabled=true;const d=await callFn({mode:'test',brand:b.id});e.target.disabled=false;
+  alert(b.name+': '+(d.ok?T('✓ الربط شغال: بوسطة قبلت المفتاح.','✓ Connection works: Bosta accepted the key.'):errText(d.error,d)));return}
+ const i=e.target.dataset.rm;if(i==null)return;readCfg();const b=S.brands[i],n=L(b.id).length;
+ const t=prompt(T(`حذف البراند "${b.name}" هيمسح كل شحناته (${n}) نهائيًا من قاعدة البيانات.\nاكتب اسم البراند للتأكيد:`,`Deleting brand "${b.name}" will permanently erase all its shipments (${n}) from the database.\nType the brand name to confirm:`));
+ if(t==null||t.trim()!==b.name)return;S.removed.push(b.id);S.brands.splice(i,1);cfgRows()};
+function readCfg(){document.querySelectorAll('#bl [data-k]').forEach(el=>{S.brands[el.dataset.i][el.dataset.k]=el.value})}
+$('#sv').onclick=async()=>{readCfg();const btn=$('#sv');btn.disabled=true;
+ try{
+  for(const id of S.removed){const r=await sb.from('brands').delete().eq('id',id);if(r.error)throw r.error;delete S.scans[id];delete S.dups[id]}
+  for(let i=0;i<S.brands.length;i++){const b=S.brands[i];if(!(b.name||'').trim())throw new Error(T('اسم البراند مطلوب.','Brand name is required.'));
+   const cfg={color:b.color||'#1f6f5c',carrier:b.carrier||'bosta',tpl:b.tpl||'',pre:b.pre||'',bgType:b.bgType||'',bgColor:b.bgColor||'',bgImg:b.bgImg||'',logo:b.logo||'',sort:i};
+   let r=await sb.from('brands').upsert({id:b.id,name:b.name.trim(),cfg});if(r.error)throw r.error;
+   if((b.newKey||'').trim()){r=await sb.rpc('set_brand_key',{p_brand:b.id,p_key:b.newKey.trim()});if(r.error)throw r.error;b.hasKey=true;b.newKey=''}}
+  S.removed=[];savedCfg=true;$('#dlg').close();await loadBrands();await Promise.all(S.brands.filter(b=>!S.scans[b.id]).map(b=>loadBrand(b.id)));render()
+ }catch(e){alert(T('تعذر الحفظ: ','Save failed: ')+(e.message||e))}
+ btn.disabled=false};
+$('#dlg').addEventListener('close',async()=>{if(savedCfg){savedCfg=false;return}S.removed=[];try{await loadBrands()}catch{}render()});
+$('#cfg').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT')e.preventDefault()});
+const TK='scanapp.theme';
+function theme(t,sv){document.documentElement.dataset.theme=t;const n=t==='dark';$('#th').setAttribute('aria-pressed',n);if(sv)try{localStorage.setItem(TK,t)}catch{}}
+$('#th').onclick=()=>theme(document.documentElement.dataset.theme==='dark'?'light':'dark',1);
+theme(document.documentElement.dataset.theme==='dark'?'dark':'light');
+$('#bl').addEventListener('change',async e=>{const t=e.target;if(t.dataset.k==='bgType'){readCfg();cfgRows();return}
+ const u=t.dataset.up;if(!u||!t.files[0])return;readCfg();
+ try{S.brands[t.dataset.i][u]=u==='logo'?await img2url(t.files[0],400,0,1):await img2url(t.files[0],1600,.72,0)}catch{alert(T('تعذر قراءة الصورة.','Could not read the image.'))}
+ cfgRows()});
+$('#dd').value=cairo(new Date().toISOString());render();
+/* ===== language ===== */
+function setLang(l,sv){LANG=l;const h=document.documentElement;h.lang=l;h.dir=l==='en'?'ltr':'rtl';if(sv)try{localStorage.setItem('scanapp.lang',l)}catch{}
+ document.title=T('مسح الشحنات','Shipment Scanner');$('#lg').setAttribute('aria-pressed',l==='en');loc(document.body)}
+new MutationObserver(()=>{if(LANG==='en')loc(document.body)}).observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['title','aria-label']});
+$('#lg').onclick=()=>{setLang(LANG==='en'?'ar':'en',1);render();loginMode(signup);if(ME)applyRole()};
+setLang(LANG);
+/* ===== القائمة الجانبية: تفتح بالوقوف عليها بالماوس أو بالضغط، وتقفل بالخروج منها أو Esc أو الضغط برّه ===== */
+(()=>{const b=$('#mnb'),d=$('#mdr'),sc=$('#msc');let t=0,pin=false;
+ const open=()=>{clearTimeout(t);document.body.classList.add('dopen');b.setAttribute('aria-expanded','true')};
+ const close=()=>{clearTimeout(t);pin=false;document.body.classList.remove('dopen');b.setAttribute('aria-expanded','false')};
+ const later=()=>{if(pin)return;clearTimeout(t);t=setTimeout(close,280)};
+ b.addEventListener('mouseenter',open);b.addEventListener('mouseleave',later);
+ d.addEventListener('mouseenter',()=>clearTimeout(t));d.addEventListener('mouseleave',later);
+ b.addEventListener('click',()=>{if(pin&&document.body.classList.contains('dopen'))close();else{open();pin=true}});
+ sc.addEventListener('click',close);document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+ d.addEventListener('click',e=>{const x=e.target.closest('button');if(x&&['cf','um','cpw','lo'].includes(x.id))close()});
+ document.querySelectorAll('.m-n>*').forEach((c,i)=>c.style.setProperty('--i',i+1));
+ d.querySelector('.m-h').style.setProperty('--i',0);d.querySelector('.m-f').style.setProperty('--i',6)})();
+/* ===== المستخدمون والصلاحيات (للمسؤول فقط) ===== */
+const PERMS=[['scan','مسح الشحنات','Scan shipments'],['analytics','عرض التحليلات','View analytics'],['export','تصدير تقارير Excel','Export Excel reports'],['refresh','تحديث حالات الشحنات من بوسطة','Refresh shipment statuses'],['reset_dups','تصفير عداد التكرار','Reset duplicate counter'],['edit','تغيير نوع الشحنة (توصيل / استبدال / مرتجع)','Change shipment type']];
+const PRESETS=[['قارئ فقط','Read only','staff',['analytics']],['موظف مسح + تقارير','Scanner + reports','staff',['scan','analytics','export']],['مشرف','Supervisor','staff',['scan','analytics','export','refresh','reset_dups','edit']]];
+const nmB=ids=>(ids||[]).map(i=>(DBR.find(b=>b.id===i)||{name:i}).name).join('، ')||'—';
+const pendN=()=>Object.values(USERS).filter(u=>u.status==='pending').length;
+async function loadUsers(){const[a,b]=await Promise.all([sb.from('profiles').select('*'),sb.from('brands').select('id,name').order('name')]);if(a.error)throw a.error;if(b.error)throw b.error;USERS={};a.data.forEach(u=>{USERS[u.id]=u});DBR=b.data;badge()}
+function badge(){if(!isAdm())return;const n=pendN();$('#um').textContent=T('👥 المستخدمون','👥 Users')+(n?` (${n})`:'');$('#um').classList.toggle('pri',n>0);$('#mnb').classList.toggle('dot',n>0)}
+const chip=u=>u.status==='pending'?`<span class="uc warn">${T('طلب جديد','New request')}</span>`:u.status==='approved'?`<span class="uc ok">${T('نشط','Active')}</span>`:`<span class="uc bad">${T('موقوف','Disabled')}</span>`;
+function uList(){
+ const us=Object.values(USERS).sort((a,b)=>((b.status==='pending')-(a.status==='pending'))||String(b.created_at).localeCompare(String(a.created_at))),n=pendN();
+ $('#ub').innerHTML=`<h2>${T('المستخدمون','Users')}</h2>${n?`<p class="uc warn" style="display:block;border-radius:8px;padding:8px 12px">${T(`عندك ${n} طلب حساب جديد منتظر موافقتك.`,`You have ${n} new account request(s) waiting for your approval.`)}</p>`:''}<div class="tw"><table style="min-width:640px"><thead><tr><th>${T('الاسم','Name')}</th><th>${T('البريد الإلكتروني','Email')}</th><th>${T('الحالة','Status')}</th><th>${T('الدور','Role')}</th><th>${T('البراندات','Brands')}</th><th></th></tr></thead><tbody>${us.map(u=>`<tr><td>${esc(u.name||'—')}</td><td style="unicode-bidi:plaintext">${esc(u.email||'')}</td><td>${chip(u)}</td><td>${u.role==='admin'?T('مسؤول','Admin'):T('موظف','Staff')}</td><td>${u.role==='admin'?T('الكل','All'):esc(nmB(u.brands))}</td><td><button type="button" data-ue="${u.id}">${u.status==='pending'?T('مراجعة','Review'):T('تعديل','Edit')}</button>${u.status==='pending'||u.id===ME.id?'':` <button type="button" data-ut="${u.id}">${u.status==='approved'?T('تعطيل','Disable'):T('تفعيل','Enable')}</button>`}</td></tr>`).join('')}</tbody></table></div>`}
+function uForm(id){const u=USERS[id];if(!u)return;const self=id===ME.id,pend=u.status==='pending',pm=u.perms||{},br=u.brands||[];
+ $('#ub').innerHTML=`<h2>${pend?T('مراجعة طلب حساب','Review account request'):T('تعديل مستخدم','Edit user')}</h2>${pend?`<p class="uc warn" style="display:block;border-radius:8px;padding:8px 12px">${T('اختار البراندات والصلاحيات ثم اضغط "موافقة وحفظ".','Choose brands and permissions, then press "Approve & save".')}</p>`:''}
+<div class="f"><label>${T('البريد الإلكتروني','Email')}</label><input class="l" value="${esc(u.email||'')}" disabled></div>
+<div class="f"><label for="u_f">${T('الاسم','Name')}</label><input id="u_f" value="${esc(u.name||'')}"></div>
+<div class="f"><label for="u_ps">${T('قالب سريع','Quick preset')}</label><select id="u_ps" ${self?'disabled':''}><option value="">${T('— اختر —','— choose —')}</option>${PRESETS.map((p,i)=>`<option value="${i}">${T(p[0],p[1])}</option>`).join('')}</select></div>
+<div class="f"><label for="u_r">${T('الدور','Role')}</label><select id="u_r" ${self?'disabled':''}><option value="staff" ${u.role!=='admin'?'selected':''}>${T('موظف (بصلاحيات محددة)','Staff (limited permissions)')}</option><option value="admin" ${u.role==='admin'?'selected':''}>${T('مسؤول (تحكم كامل)','Admin (full control)')}</option></select></div>
+<div id="u_x" ${u.role==='admin'?'hidden':''}><fieldset><legend>${T('البراندات المسموح بها','Allowed brands')}</legend>${DBR.map(b=>`<label class="chk"><input type="checkbox" name="ub" value="${esc(b.id)}" ${br.includes(b.id)?'checked':''}> ${esc(b.name)}</label>`).join('')}</fieldset>
+<fieldset><legend>${T('الصلاحيات','Permissions')}</legend><div class="pg">${PERMS.map(([k,a,e])=>`<label class="chk"><input type="checkbox" name="up" value="${k}" ${pm[k]?'checked':''}> ${T(a,e)}</label>`).join('')}</div><small>${T('حذف الشحنات وتعديل الإعدادات وإدارة المستخدمين للمسؤول فقط.','Deleting shipments, settings and user management are admin-only.')}</small></fieldset></div>
+<div style="margin-top:12px"><button type="button" class="pri" data-ua="save" data-id="${u.id}">${pend?T('موافقة وحفظ','Approve & save'):T('حفظ','Save')}</button> ${pend?`<button type="button" data-ua="rej" data-id="${u.id}">${T('رفض','Reject')}</button> `:''}<button type="button" data-ua="back">${T('رجوع','Back')}</button></div>`}
+async function uSave(id){const u=USERS[id],self=id===ME.id,g=x=>document.getElementById(x),role=self?u.role:g('u_r').value,adm=role==='admin';
+ const patch={name:g('u_f').value.trim(),role,brands:adm?[]:[...document.querySelectorAll('#ub [name=ub]:checked')].map(x=>x.value),perms:adm?{}:Object.fromEntries(PERMS.map(([k])=>[k,!!document.querySelector(`#ub [name=up][value=${k}]:checked`)]))};
+ if(u.status==='pending')patch.status='approved';
+ if(patch.status==='approved'&&!adm&&!patch.brands.length&&!confirm(T('لم تختر أي براند. المستخدم هيدخل بدون أي براند. متأكد؟','No brand selected. The user will sign in with no brands. Continue?')))return;
+ const{data,error}=await sb.from('profiles').update(patch).eq('id',id).select();
+ if(error||!data||!data.length){alert(T('تعذر الحفظ: ','Could not save: ')+(error?error.message:T('لا توجد صلاحية.','no permission.')));return}
+ USERS[id]=data[0];badge();uList()}
+async function setSt(id,st){const{data,error}=await sb.from('profiles').update({status:st}).eq('id',id).select();if(error||!data||!data.length){alert(T('تعذر التعديل: ','Could not update: ')+(error?error.message:''));return}USERS[id]=data[0];badge();uList()}
+$('#ub').onclick=async e=>{const t=e.target.closest('button');if(!t)return;
+ if(t.dataset.ue){uForm(t.dataset.ue);return}
+ if(t.dataset.ut){const u=USERS[t.dataset.ut];if(u)await setSt(u.id,u.status==='approved'?'disabled':'approved');return}
+ const a=t.dataset.ua;if(a==='back')uList();else if(a==='save'){t.disabled=true;await uSave(t.dataset.id);t.disabled=false}else if(a==='rej')await setSt(t.dataset.id,'disabled')};
+$('#ub').onchange=e=>{const t=e.target;if(t.id==='u_r')$('#u_x').hidden=t.value==='admin';
+ if(t.id==='u_ps'&&t.value!==''){const P=PRESETS[+t.value];document.querySelectorAll('#ub [name=up]').forEach(c=>{c.checked=P[3].includes(c.value)});if(!document.querySelector('#ub [name=ub]:checked'))document.querySelectorAll('#ub [name=ub]').forEach(c=>{c.checked=true})}};
+$('#um').onclick=async()=>{if(!isAdm())return;try{await loadUsers()}catch(e){alert(e.message);return}uList();$('#usr').showModal()};
+$('#uc').onclick=()=>$('#usr').close();
+function adminStart(){loadUsers().then(()=>{lastP=pendN();if(lastP){msg(T(`عندك ${lastP} طلب حساب جديد. افتح 👥 المستخدمون للموافقة.`,`You have ${lastP} new account request(s). Open 👥 Users to approve.`),'warn');beep(660,150)}}).catch(()=>{});
+ clearInterval(poll);poll=setInterval(async()=>{if(document.hidden||!ME)return;try{await loadUsers();const n=pendN();if(n>lastP){msg(T(`طلب حساب جديد! عندك ${n} طلب منتظر.`,`New account request! ${n} waiting.`),'warn');beep(660,150)}lastP=n}catch{}},30000)}
+/* ===== تسجيل الدخول (Supabase Auth) ===== */
+/* عدّل السطرين دول فقط: Project Settings > API Keys */
+const SUPABASE_URL='https://rvlytvitcfmmyxpqdqqj.supabase.co',SUPABASE_KEY='sb_publishable_o2BLbNJbTPs66PASnf3osA_kZj9acBr';
+const OTP_REQUIRED=true,OTP_LEN=4; // كود تحقق لغير الأدمن (الدالة otp لازم تكون منشورة على Supabase)
+const KEEP_LOGIN=false; // true = يفضل المستخدم مسجّل دخول بعد إغلاق المتصفح (على جهاز شخصي فقط)
+const sb=(window.supabase&&/^https:\/\//.test(SUPABASE_URL)&&!/PASTE_/.test(SUPABASE_URL+SUPABASE_KEY))?window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,storage:KEEP_LOGIN?window.localStorage:window.sessionStorage}}):null;
+function lockUI(){document.body.classList.remove('otp');try{$('#trd').close()}catch{}try{sessionStorage.removeItem('scanapp.otp')}catch{}clearInterval(poll);clearInterval(syncT);document.body.classList.remove('dopen');ME=null;S.brands=[];S.scans={};S.dups={};document.body.classList.add('locked');$('#le').textContent='';$('#lm').textContent='';$('#lp').value=$('#lc').value='';$('#lu').focus()}
+function unlock(){document.body.classList.remove('locked');$('#tn').focus()}
+function applyRole(){const n=ME.name||ME.email||'';$('#wn').textContent=n;$('#wr').textContent=isAdm()?T('مسؤول','Admin'):T('موظف','Staff');$('#av').textContent=(n.trim()[0]||'?').toUpperCase();$('#madm').hidden=!isAdm();$('#cf').hidden=!isAdm();$('#um').hidden=!isAdm()}
+function loginMode(on){signup=on;$('#lnw').hidden=!on;$('#lcw').hidden=!on;$('#lt').textContent=T(on?'طلب إنشاء حساب':'تسجيل الدخول',on?'Request an account':'Sign in');$('#lb').textContent=T(on?'إرسال الطلب':'دخول',on?'Send request':'Sign in');$('#lsw').textContent=T(on?'لديك حساب؟ سجّل الدخول':'ليس لديك حساب؟ اطلب حساب جديد',on?'Have an account? Sign in':'No account? Request one');$('#le').textContent='';$('#lm').textContent=''}
+$('#lsw').onclick=()=>loginMode(!signup);
+const otpOk=id=>{try{return sessionStorage.getItem('scanapp.otp')===id}catch{return false}};
+$('#lpe').onclick=()=>{const p=$('#lp');p.type=p.type==='password'?'text':'password'};
+$('#of').onsubmit=e=>e.preventDefault();
+function otpFlow(session){return new Promise(res=>{
+ const box=[...document.querySelectorAll('#ob input')],er=$('#oe'),rs=$('#orx'),fm=$('#of');let busy=false,cd=0,tm=0;
+ document.body.classList.add('otp');box.forEach(b=>b.value='');er.textContent='';$('#om').textContent='';box[0].focus();
+ const call=async body=>{const r=await sb.functions.invoke('otp',{body});if(r.error){let m=r.error.message;try{const j=await r.error.context.json();m=j.error||m}catch{}throw new Error(m)}return r.data};
+ const tick=n=>{cd=n;rs.disabled=true;clearInterval(tm);tm=setInterval(()=>{if(--cd<=0){clearInterval(tm);rs.disabled=false;rs.textContent=T('إعادة الإرسال','Resend')}else rs.textContent=T('إعادة الإرسال','Resend')+' ('+cd+')'},1000)};
+ const send=async()=>{er.textContent='';tick(30);try{await call({action:'send'});$('#om').textContent=T('تم إرسال الكود لمسؤول النظام.','The code was sent to the system admin.')}catch(e){er.textContent=T('تعذر إرسال الكود: ','Could not send the code: ')+e.message;tick(5)}};
+ const done=ok=>{clearInterval(tm);document.body.classList.remove('otp');res(ok)};
+ const check=async()=>{const code=box.map(b=>b.value).join('');if(busy||code.length<OTP_LEN)return;busy=true;er.textContent='';
+  try{await call({action:'verify',code});try{sessionStorage.setItem('scanapp.otp',session.user.id)}catch{}await bot('ok');done(true)}
+  catch(e){bot('no');er.textContent=e.message||T('الكود غير صحيح.','Wrong code.');box.forEach(b=>b.value='');box[0].focus();fm.classList.remove('shk');void fm.offsetWidth;fm.classList.add('shk')}
+  busy=false};
+ box.forEach((b,i)=>{b.oninput=()=>{b.value=b.value.replace(/\D/g,'').slice(-1);if(b.value&&box[i+1])box[i+1].focus();check()};
+  b.onkeydown=e=>{if(e.key==='Backspace'&&!b.value&&box[i-1]){box[i-1].focus();box[i-1].value=''}};
+  b.onpaste=e=>{const t=(e.clipboardData.getData('text')||'').replace(/\D/g,'').slice(0,OTP_LEN);if(!t)return;e.preventDefault();[...t].forEach((c,j)=>box[j].value=c);box[Math.min(t.length,OTP_LEN-1)].focus();check()}});
+ rs.onclick=send;$('#obk').onclick=()=>done(false);send()})}
+async function enter(session){
+ const fail=async m=>{try{await sb.auth.signOut()}catch{}lockUI();$('#le').textContent=m;return false};
+ const{data:pf,error}=await sb.from('profiles').select('*').eq('id',session.user.id).maybeSingle();
+ if(error)return fail(T('تعذر قراءة بيانات حسابك: ','Could not read your account: ')+error.message);
+ if(!pf)return fail(T('حسابك غير مُعدّ. تواصل مع المسؤول.','Your account is not set up. Contact the admin.'));
+ if(pf.status==='pending')return fail(T('طلبك قيد المراجعة. هتقدر تدخل بعد موافقة المسؤول.','Your request is pending. You can sign in once the admin approves it.'));
+ if(pf.status!=='approved')return fail(T('حسابك موقوف. تواصل مع المسؤول.','Your account is disabled. Contact the admin.'));
+ if(OTP_REQUIRED&&pf.role!=='admin'&&!otpOk(pf.id)&&!(await otpFlow(session)))return fail('');
+ ME={id:pf.id,email:pf.email,name:pf.name||'',role:pf.role,brands:pf.brands||[],perms:pf.perms||{}};
+ let loc=[];try{loc=(JSON.parse(localStorage.getItem(KEY)||'null')||{}).brands||[]}catch{}
+ try{await loadBrands();await migrateKeys(loc);stripLocalKeys();await Promise.all(S.brands.map(b=>loadBrand(b.id)))}catch(e){return fail(T('تعذر تحميل البيانات: ','Could not load data: ')+(e.message||e))}
+ applyRole();unlock();render();startSync();if(isAdm())adminStart();
+ if(!S.brands.length)msg(T('لا توجد براندات مُسندة لحسابك. تواصل مع المسؤول.','No brands are assigned to your account. Contact the admin.'),'warn');
+ return true}
+/* ===== خلفية ديناميكية: شبكة أيونات بحركة هادئة ===== */
+(()=>{const c=$('#bgc'),x=c.getContext('2d'),rm=matchMedia('(prefers-reduced-motion:reduce)').matches,R=(a,b)=>a+Math.random()*(b-a);
+let W,H,N=[],O=[],mx=-1e4,my=-1e4,last=performance.now();
+const wrap=(o,m)=>{if(o.x<-m)o.x=W+m;else if(o.x>W+m)o.x=-m;if(o.y<-m)o.y=H+m;else if(o.y>H+m)o.y=-m};
+function init(){const D=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;c.width=W*D;c.height=H*D;x.setTransform(D,0,0,D,0,0);
+ const n=Math.round(Math.min(120,Math.max(28,W*H/15000)));
+ N=Array.from({length:n},()=>({x:R(0,W),y:R(0,H),z:R(.45,1),a:R(0,6.28),s:R(6,16),p:R(0,6.28),w:R(.15,.5),h:Math.random()<.34?0:1}));
+ O=Array.from({length:Math.max(4,Math.round(n/8))},()=>({x:R(0,W),y:R(0,H),r:R(26,72),a:R(0,6.28),s:R(2,6),p:R(0,6.28),h:Math.random()<.4?0:1}))}
+function draw(dt,t){const dk=document.documentElement.dataset.theme==='dark';x.clearRect(0,0,W,H);x.globalCompositeOperation=dk?'lighter':'source-over';
+ for(const o of O){o.a+=Math.sin(t*.1+o.p)*.2*dt;o.x+=Math.cos(o.a)*o.s*dt;o.y+=Math.sin(o.a)*o.s*dt;wrap(o,o.r);
+  const pr=o.r*(1+.08*Math.sin(t*.4+o.p)),g=x.createRadialGradient(o.x,o.y,0,o.x,o.y,pr),col=o.h?'255,140,60':'70,190,255',al=dk?.16:.09;
+  g.addColorStop(0,`rgba(${col},${al})`);g.addColorStop(1,`rgba(${col},0)`);x.fillStyle=g;x.beginPath();x.arc(o.x,o.y,pr,0,6.283);x.fill()}
+ for(const n of N){n.a+=Math.sin(t*n.w+n.p)*.5*dt;n.x+=Math.cos(n.a)*n.s*n.z*dt;n.y+=Math.sin(n.a)*n.s*n.z*dt;wrap(n,20)}
+ const L=Math.min(170,Math.max(120,W/9)),L2=L*L,M2=L2*1.6;x.lineWidth=1;
+ for(let i=0;i<N.length;i++){const a=N[i];
+  for(let j=i+1;j<N.length;j++){const b=N[j],dx=a.x-b.x,dy=a.y-b.y,d=dx*dx+dy*dy;if(d<L2){const al=(1-d/L2)*.55*Math.min(a.z,b.z);
+   x.strokeStyle=dk?`rgba(${a.h?'255,170,90':'120,210,255'},${al})`:`rgba(${a.h?'190,90,10':'20,80,140'},${al*.8})`;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}
+  const dx=a.x-mx,dy=a.y-my,d=dx*dx+dy*dy;if(d<M2){const k=1-d/M2;x.strokeStyle=dk?`rgba(255,220,150,${k*.6})`:`rgba(20,80,140,${k*.5})`;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(mx,my);x.stroke()}}
+ for(const n of N){const r=1.2+n.z*1.9,pu=.75+.25*Math.sin(t*n.w*3+n.p),col=dk?(n.h?'255,200,120':'160,225,255'):(n.h?'200,100,15':'20,90,150');
+  x.fillStyle=`rgba(${col},${.13*pu})`;x.beginPath();x.arc(n.x,n.y,r*4,0,6.283);x.fill();
+  x.fillStyle=dk?`rgba(255,255,255,${.9*n.z*pu})`:`rgba(${col},${.9*n.z})`;x.beginPath();x.arc(n.x,n.y,r,0,6.283);x.fill()}}
+init();addEventListener('resize',()=>{init();if(rm)draw(0,0)});
+if(rm){draw(0,0);return}
+addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY},{passive:true});
+(function f(now){requestAnimationFrame(f);if(document.hidden||document.body.classList.contains('locked')){last=now;return}const dt=Math.min((now-last)/1000,.05);last=now;draw(dt,now/1000)})(last)})();
+/* ===== BEBO: مساعد الشحنات الذكي (يقرا نفس البيانات المسموح للمستخدم يشوفها فقط) ===== */
+(()=>{
+const nz=s=>String(s||'').toLowerCase().replace(/[\u064B-\u065F\u0640]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[؟?!.,،:;"']/g,' ').replace(/\s+/g,' ').trim();
+const rowsAll=()=>S.scans[B().id]||[],canA=()=>isAdm()||!!(ME&&ME.perms&&ME.perms.analytics),pc=(a,b)=>b?Math.round(a/b*100)+'%':'—',lst=a=>a.map(x=>'• '+x).join('<br>');
+const per=q=>/(النهارده|اليوم|today)/.test(q)?'d':/(الكل|كل الوقت|كله|overall|all time)/.test(q)?'a':'m';
+const lab=p=>p==='d'?T('النهارده','today'):p==='a'?T('الإجمالي','overall'):T('الشهر ده','this month');
+const inPer=(l,p)=>{const n=cairo(new Date().toISOString());return p==='a'?l:l.filter(s=>p==='d'?cairo(s.at)===n:cairo(s.at).slice(0,7)===n.slice(0,7))};
+const stt=l=>{const o=l.filter(s=>s.kind!=='return'),sm=k=>l.reduce((t,s)=>t+(Number(s[k])||0),0),dl=o.filter(s=>OCD.test(s.st)).length,rt=o.filter(s=>OCR.test(s.st)).length;return{out:o.length,ret:l.length-o.length,dl,rt,pd:o.length-dl-rt,cod:sm('cod'),fees:sm('fees'),items:sm('items')}};
+const cust=l=>{const g={};l.filter(s=>s.kind!=='return').forEach(s=>{const k=ck(s);if(k==='—')return;const x=g[k]||(g[k]={n:s.cn,p:s.cp,t:0,d:0,r:0});x.t++;if(OCD.test(s.st))x.d++;else if(OCR.test(s.st))x.r++});return Object.values(g)};
+const cl=c=>`${esc(c.n||'—')} (${c.t} ${T('طلب','orders')} · ${c.d} ${T('استلم','received')} · ${c.r} ${T('مرتجع','returned')})`;
+const card=s=>`<div class="bcard"><b>${esc(s.tn)}</b> <span class="bk">${tt(KL[s.kind||'delivery'])}</span><br>👤 ${esc(s.cn||'—')} · <span dir="ltr">${esc(s.cp||'—')}</span><br>📍 ${esc(s.gov||'—')} · 🕒 ${esc(ft(s.at))}<br>📌 ${esc(s.st||'—')}<br>💰 COD ${nf(s.cod||0)} · 🚚 ${nf(s.fees||0)} · ✅ ${T('الصافي','Net')} ${nf((s.cod||0)-(s.fees||0))}<br>📦 ${prods(s).map(p=>esc(p.k)+' ×'+p.n).join('، ')||'—'}</div>`;
+const STOP=new Set('ابحث دور عن عندي لي شحنه شحنات عميل العميل اسم رقم التليفون تليفون موبايل الاوردر اوردر الطلب طلب بتاع بتاعه ده دي هل فين ايه اي و في من علي عايز عاوز اعرف ورني find search order customer phone number for about shipment tracking the of me show'.split(' '));
+function find(q){const t=q.split(' ').filter(w=>w&&!STOP.has(w));if(!t.length)return[];return rowsAll().filter(s=>{const h=nz([s.tn,s.doc,s.cn,s.cp,s.desc,s.gov].join(' ')),hp=String(s.cp||'').replace(/\D/g,'');return t.every(w=>h.includes(w)||(/^\d{4,}$/.test(w)&&hp.includes(w)))}).slice(-50)}
+const res=f=>{const one=new Set(f.map(ck)).size===1&&f[0].cn,h=one?`<b>${esc(f[0].cn)}</b>: ${cl(cust(f)[0]||{t:0,d:0,r:0})}<br>`:'';return h+T(`لقيت ${f.length} نتيجة:`,`Found ${f.length} result(s):`)+f.slice(-5).reverse().map(card).join('')+(f.length>5?'<br>'+T('(عرضت أحدث 5 — زوّد تفاصيل للتحديد)','(latest 5 shown — add detail to narrow)'):'')};
+const need=fn=>q=>canA()?fn(q):T('الأرقام التحليلية متاحة للمستخدمين اللي عندهم صلاحية التحليلات 🔒','Analytics numbers need the Analytics permission 🔒');
+const none=()=>T(`مفيش شحنات متسجلة لـ ${esc(B().name)} في الفترة دي.`,`No shipments recorded for ${esc(B().name)} in this period.`);
+const sumry=q=>{const p=per(q),l=inPer(rowsAll(),p);if(!l.length)return none();const s=stt(l);return `<b>${esc(B().name)} — ${lab(p)}</b><br>`+lst([T(`الصادر: ${s.out} شحنة (استلم ${s.dl} · مرتجع ${s.rt} · قيد التوصيل ${s.pd})`,`Outgoing: ${s.out} (delivered ${s.dl} · returned ${s.rt} · in transit ${s.pd})`),T(`عمليات مرتجع مسجّلة: ${s.ret}`,`Return scans: ${s.ret}`),T(`القطع (صافي): ${nf(s.items)}`,`Net items: ${nf(s.items)}`),`COD: ${nf(s.cod)}`,T(`مصاريف الشحن: ${nf(s.fees)}`,`Shipping fees: ${nf(s.fees)}`),`<b>${T('صافي الدفع','Net payout')}: ${nf(s.cod-s.fees)}</b>`,T(`نسبة الاستلام ${pc(s.dl,s.dl+s.rt)} · المرتجع ${pc(s.rt,s.dl+s.rt)} (من المحسوم)`,`Delivery ${pc(s.dl,s.dl+s.rt)} · Return ${pc(s.rt,s.dl+s.rt)} (of decided)`)])};
+const KB={
+ hi:()=>T('أهلًا بيك! أنا <b>BEBO</b> 🤖 مساعدك الذكي. اسألني عن أي شحنة (برقمها أو رقم الأوردر)، أو عميل (باسمه أو تليفونه)، أو الأرقام والتحليلات.','Hi! I am <b>BEBO</b> 🤖, your smart assistant. Ask me about any shipment (tracking or order number), a customer (name or phone), or the numbers and analytics.'),
+ me:()=>T('أنا <b>BEBO</b> 🤖 مساعد ذكي جوه الموقع، بدوّر لك في بيانات الشحنات والعملاء وبجاوب على أسئلتك بسرعة.','I am <b>BEBO</b> 🤖, a smart assistant inside the site. I search shipment and customer data and answer your questions fast.'),
+ owner:()=>T('صاحب الموقع ومطوّره: <b>م/ أحمد محمود</b> 👨‍💻','The site owner and developer: <b>Eng. Ahmed Mahmoud</b> 👨‍💻'),
+ when:()=>T('الموقع اتعمل في <b>أكتوبر 2026</b>.','The site was created in <b>October 2026</b>.'),
+ idea:()=>T('الفكرة نشأت لـ <b>تقليل الأخطاء في الشحنات</b> و<b>تجنّب الأوردرات المكرّرة</b>.','The idea started to <b>reduce shipment errors</b> and <b>avoid duplicate orders</b>.'),
+ feat:()=>T('مميزات الموقع:<br>• عرض تحليلي كامل للقطع والشحنات<br>• بيانات العملاء الأكثر تجاوبًا والأقل<br>• كشف الأوردرات المكررة<br>• أرقام تساعدك تاخد قرارات مباشرة','Site features:<br>• Full analytics for items and shipments<br>• Most and least responsive customers<br>• Duplicate order detection<br>• Numbers that support direct decisions'),
+ help:()=>T('أقدر أساعدك في:<br>• البحث عن شحنة برقمها أو رقم الأوردر<br>• بيانات عميل بالاسم أو التليفون<br>• أرقام النهارده/الشهر: الشحنات، COD، الصافي، المرتجع<br>• أكتر منتج ومحافظة، وأفضل/أضعف العملاء<br>• معلومات عن الموقع','I can help with:<br>• Finding a shipment by tracking/order number<br>• Customer data by name or phone<br>• Today/month numbers: shipments, COD, net, returns<br>• Top product and governorate, best/weakest customers<br>• Info about the site')+(isAdm()?T('<br>• 🗑️ (للمسؤول) سلة المهملات وحذف الأوردرات: اكتب "افتح سلة المهملات" أو "احذف 123456789"','<br>• 🗑️ (admin) Trash &amp; deleting orders: type "open trash" or "delete 123456789"'):'')};
+/* أوامر الأدمن: سلة المهملات وحذف الأوردرات (للمسؤول فقط) */
+let PEND=null,PTOK=0;
+const DELT=/^(احذف|احذفلي|احذفي|امسح|امسحلي|امسحي|حذف|شيل|شيلي|ازاله|ازل|تفريغ|فضي|فرغ|delete|remove|erase|empty)$/,TRST=/^(ال)?(سله|مهملات)$|^(trash|bin|recycle)$/,ORDT=/^(ال)?(اوردر|اوردرات|شحنه|شحنات|طلب|طلبات|order|orders|shipment|shipments)$/,ALLT=/^(كل|الكل|كله|جميع|all|everything)$/;
+function adminCmd(q){
+ const w=q.split(' ').filter(Boolean),nums=q.match(/\d{5,}/g)||[],del=w.some(x=>DELT.test(x)),trs=w.some(x=>TRST.test(x)),ord=w.some(x=>ORDT.test(x));
+ if(!trs&&!(del&&(nums.length||ord)))return null;
+ if(!isAdm())return T('أمر الحذف وسلة المهملات متاح للمسؤول فقط 🔒','Delete and Trash commands are for the admin only 🔒');
+ const b=B();if(!b.id)return none();
+ if(del&&nums.length){
+  const rows=rowsAll(),hit=new Map(),miss=[];
+  nums.forEach(n=>{let m=rows.filter(s=>nz(s.tn)===n||nz(s.doc)===n);if(!m.length&&n.length>=6)m=rows.filter(s=>nz(s.tn).includes(n)||nz(s.doc).includes(n));if(!m.length)miss.push(n);m.slice(0,20).forEach(s=>hit.set(s.id,s))});
+  if(!hit.size)return T(`مش لاقي أوردرات بالأرقام دي في <b>${esc(b.name)}</b>.`,`No orders found for those numbers in <b>${esc(b.name)}</b>.`);
+  if(hit.size>30)return T('النتائج كتير (أكتر من 30). اكتب أرقام أدق أو استخدم 🗑️ سلة المهملات.','Too many matches (over 30). Use exact numbers or the 🗑️ Trash button.');
+  PEND={t:++PTOK,ids:[...hit.keys()],bid:b.id};
+  return T(`⚠️ هتحذف <b>${hit.size}</b> أوردر من <b>${esc(b.name)}</b> نهائيًا:`,`⚠️ You are about to permanently delete <b>${hit.size}</b> order(s) from <b>${esc(b.name)}</b>:`)+'<br>'+lst([...hit.values()].slice(0,10).map(s=>`<b>${esc(s.tn)}</b> · ${tt(KL[s.kind||'delivery'])} · ${esc(s.cn||'—')}`))+(hit.size>10?'<br>'+T(`و${hit.size-10} كمان…`,`and ${hit.size-10} more…`):'')+(miss.length?'<br>'+T(`مش لاقي: ${miss.map(esc).join('، ')}`,`Not found: ${miss.map(esc).join(', ')}`):'')+`<div class="bact"><button type="button" data-bdel="yes" data-t="${PTOK}">${T('🗑️ تأكيد الحذف','🗑️ Confirm delete')}</button><button type="button" data-bdel="no" data-t="${PTOK}">${T('إلغاء','Cancel')}</button></div>`}
+ const p=/(النهارده|اليوم|today)/.test(q)?'d':/(الشهر|شهر|month)/.test(q)?'m':'a',k=w.some(x=>/^(ال)?(مرتجع|مرتجعات)$|^returns?$/.test(x))?'ret':w.some(x=>/^(ال)?صادر$/.test(x))?'out':'all',all=del&&w.some(x=>ALLT.test(x));
+ const n=trOpen({p,k,all}),pl=p==='d'?T('اليوم','today'):p==='m'?T('الشهر','the month'):T('كل الفترات','all time');
+ if(n<0)return T('تعذر فتح سلة المهملات.','Could not open the Trash.');
+ if(all)return n?T(`فتحت 🗑️ سلة المهملات لـ <b>${esc(b.name)}</b> (${pl}) وحددت <b>${n}</b> أوردر. راجعهم واضغط <b>حذف المحدد</b> للتأكيد.`,`Opened 🗑️ Trash for <b>${esc(b.name)}</b> (${pl}) with <b>${n}</b> order(s) selected. Review them and press <b>Delete selected</b> to confirm.`):T(`مفيش أوردرات في ${esc(b.name)} (${pl}) تتحذف.`,`No orders in ${esc(b.name)} (${pl}) to delete.`);
+ return T(`فتحت 🗑️ سلة المهملات لـ <b>${esc(b.name)}</b>. حدد الأوردرات (أو "تحديد الكل") واضغط <b>حذف المحدد</b>.`,`Opened 🗑️ Trash for <b>${esc(b.name)}</b>. Select the orders (or "Select all") and press <b>Delete selected</b>.`)}
+const SEC=/(api|مفتاح|key|باسورد|كلمه (ال)?مرور|password|token|توكن|otp|كود (ال)?تحقق|supabase|service role|مستخدمين|users|صلاحيات|permissions|ايميل (ال)?(موظف|مستخدم|ادمن))/;
+const SUP=/(افضل|اكتر|الاكثر|اقل|اسوا|متجاوب|تجاوب|best|top|worst|most|least)/;
+const R=[
+[/^(مرحبا|اهلا|السلام|هاي|هلو|ازيك|صباح|مساء|hi|hello|hey)/,KB.hi],[/(شكرا|thanks|thank you)/,()=>T('العفو! أنا هنا في أي وقت 😊','Anytime! 😊')],
+[/(مين انت|انت مين|اسمك|who are you)/,KB.me],[/(صاحب|مالك|مطور|مين عمل|مين صمم|احمد محمود|owner|developer|creator|who made|who built)/,KB.owner],
+[/(امتي|اتعمل|انشا|تاريخ الموقع|created|when was)/,KB.when],[/(فكره الموقع|فكره السايت|هدف|غرض|idea|purpose|why was)/,KB.idea],
+[/(مميزات|امكانيات|فايده|بيعمل ايه|features|benefits)/,KB.feat],[/(مساعده|help|تقدر|تعمل ايه|what can you)/,KB.help],
+[/(مكرر|تكرار|duplicate)/,()=>{const n=(S.dups[B().id]||[]).length;return T(`محاولات المسح المكررة على ${esc(B().name)}: <b>${n}</b>.`,`Duplicate scan attempts on ${esc(B().name)}: <b>${n}</b>.`)}],
+[/(منتج|قطع|product|best.?sell|اكتر.*بيع)/,need(q=>{const p=per(q),l=inPer(rowsAll(),p),g=prg(l).slice(0,3);return g.length?`<b>${T('الأكثر طلبًا','Top products')} — ${lab(p)}</b><br>`+lst(g.map(([k,x])=>`${esc(k)}: ${x.o} ${T('قطعة','pcs')}${x.r?` (${x.r} ${T('مرتجع','returned')})`:''}`)):none()})],
+[/(محافظ|مدينه|gov|city)/,need(q=>{const p=per(q),g={};inPer(rowsAll(),p).filter(s=>s.kind!=='return').forEach(s=>{const k=s.gov||T('غير محدد','Unknown');g[k]=(g[k]||0)+1});const a=Object.entries(g).sort((x,y)=>y[1]-x[1]).slice(0,3);return a.length?`<b>${T('أكثر المحافظات','Top governorates')} — ${lab(p)}</b><br>`+lst(a.map(([k,n])=>`${esc(k)}: ${n}`)):none()})],
+[new RegExp('(عملاء|عميل|customer).*'+SUP.source+'|'+SUP.source+'.*(عملاء|عميل|customer)'),need(q=>{const p=per(q),c=cust(inPer(rowsAll(),p)),w=/(اقل|اسوا|مرتجع|رفض|worst|least)/.test(q);if(!c.length)return none();const a=(w?c.filter(x=>x.r>0).sort((x,y)=>y.r-x.r||y.t-x.t):c.filter(x=>x.d>0).sort((x,y)=>y.d-x.d||y.t-x.t)).slice(0,3);return a.length?`<b>${w?T('الأقل تجاوبًا (الأكثر مرتجعًا)','Least responsive (most returns)'):T('الأكثر تجاوبًا (الأكثر استلامًا)','Most responsive (most received)')} — ${lab(p)}</b><br>`+lst(a.map(cl)):none()})],
+[/(كام|عدد|اجمالي|صافي|cod|تحصيل|مصاريف|نسبه|مرتجعات|مرتجع|استلام|احصائيات|ملخص|how many|count|total|net|payout|fees|rate|stats|summary)/,need(sumry)]];
+function ans(raw){const q=nz(raw);const ac=adminCmd(q);if(ac!=null)return ac;if(SEC.test(q))return T('معلومات سرّية زي المفاتيح وكلمات المرور وبيانات المستخدمين مش بقدر أتكلم فيها 🔒 اسألني عن الشحنات والعملاء والأرقام.','I cannot share secret info like keys, passwords or user data 🔒 Ask me about shipments, customers and numbers.');
+ const f0=find(q);if(f0.length&&/\d{5,}/.test(q))return res(f0);
+ for(const[re,fn]of R)if(re.test(q)){const r=fn(q);if(r)return r}
+ const f=find(q);if(f.length)return res(f);
+ return T('مش متأكد فهمت قصدك 🤔 جرّب رقم شحنة أو تليفون أو اسم عميل، أو اسألني عن الأرقام (مثلًا: صافي الدفع الشهر ده).','I did not quite get that 🤔 Try a tracking number, phone or customer name, or ask about numbers (e.g. net payout this month).')}
+/* واجهة */
+const $b=$('#bebo'),bm=$('#bm'),bi=$('#bi'),CH=[['ملخص الشهر','Month summary','ملخص الشهر'],['صافي الدفع النهارده','Net payout today','صافي الدفع النهارده'],['أكتر منتج','Top product','أكتر منتج'],['أفضل العملاء','Best customers','افضل العملاء'],['أضعف العملاء','Weakest customers','اقل العملاء تجاوب'],['عن الموقع','About the site','مميزات الموقع']];
+const add=(c,h)=>{const d=document.createElement('div');d.className='bmsg '+c;d.innerHTML=h;bm.appendChild(d);bm.scrollTop=bm.scrollHeight;return d};
+function ask(t){t=t.trim();if(!t)return;add('u',esc(t));const ty=add('b ty','<i></i><i></i><i></i>');setTimeout(()=>{let h;try{h=ans(t)}catch{h=T('حصلت مشكلة بسيطة، جرّب تاني.','Something went wrong, try again.')}ty.className='bmsg b';ty.innerHTML=h;bm.scrollTop=bm.scrollHeight},320+Math.random()*320)}
+function texts(){$('#bs').textContent=T('مساعد الشحنات الذكي','Smart shipment assistant');bi.placeholder=T('اكتب سؤالك أو رقم شحنة…','Type a question or tracking no.…');$('#bt').textContent=T('أنا BEBO 👋 اسألني عن أي شحنة أو عميل','I am BEBO 👋 Ask me about any shipment or customer');$('#bc').innerHTML=CH.concat(isAdm()?[['🗑️ سلة المهملات','🗑️ Trash','افتح سلة المهملات']]:[]).map(c=>`<button type="button" data-q="${esc(c[2])}">${T(c[0],c[1])}</button>`).join('')}
+function toggle(o){$b.classList.toggle('open',o);$('#bt').classList.remove('on');if($b.classList.contains('open')){texts();if(!bm.children.length)add('b',KB.hi());setTimeout(()=>bi.focus(),60)}}
+$('#bb').onclick=()=>toggle(!$b.classList.contains('open'));$('#bx').onclick=()=>toggle(false);
+$('#bf').onsubmit=e=>{e.preventDefault();const v=bi.value;bi.value='';ask(v)};
+$('#bc').onclick=e=>{const b=e.target.closest('button[data-q]');if(b)ask(b.dataset.q)};
+$('#bm').addEventListener('click',async e=>{const bt=e.target.closest('button[data-bdel]');if(!bt)return;
+ bt.closest('.bact').querySelectorAll('button').forEach(x=>x.disabled=true);
+ const P=PEND;if(!P||String(P.t)!==bt.dataset.t){add('b',T('الطلب ده انتهى، اكتب الأمر من جديد.','This request has expired, type the command again.'));return}
+ PEND=null;if(bt.dataset.bdel!=='yes'){add('b',T('تم الإلغاء، ما اتحذفش حاجة.','Cancelled, nothing was deleted.'));return}
+ if(!isAdm()){add('b',T('الحذف للمسؤول فقط 🔒','Deleting is for the admin only 🔒'));return}
+ const r=await trDelete(P.ids,P.bid);
+ add('b',r.fail?T(`تم حذف ${r.done} وتعذر حذف ${r.fail}${r.err?': '+esc(r.err):''}.`,`Deleted ${r.done}, failed ${r.fail}${r.err?': '+esc(r.err):''}.`):T(`✅ تم حذف ${r.done} أوردر.`,`✅ Deleted ${r.done} order(s).`))});
+
+addEventListener('keydown',e=>{if(e.key==='Escape'&&$b.classList.contains('open'))toggle(false)});
+let shown=0;new MutationObserver(()=>{if(!document.body.classList.contains('locked')&&!shown){shown=1;texts();try{if(sessionStorage.getItem('bebo.seen'))return;sessionStorage.setItem('bebo.seen','1')}catch{}setTimeout(()=>{if(!$b.classList.contains('open')){$('#bt').classList.add('on');setTimeout(()=>$('#bt').classList.remove('on'),7000)}},1200)}if(document.body.classList.contains('locked')){shown=0;toggle(false);bm.innerHTML=''}}).observe(document.body,{attributes:true,attributeFilter:['class']});
+})();
+/* ===== الروبوت + خطوط السرعة ===== */
+const rb=$('#rb'),rh=$('#rh'),pu=[...rb.querySelectorAll('.ey b')],lockOn=()=>document.body.classList.contains('locked');
+document.querySelectorAll('#lock .f input').forEach(i=>i.placeholder=' ');
+addEventListener('pointermove',e=>{if(!lockOn())return;const r=rh.getBoundingClientRect(),cl=v=>Math.max(-1,Math.min(1,v)),dx=cl((e.clientX-(r.left+r.width/2))/(innerWidth*.35)),dy=cl((e.clientY-(r.top+r.height/2))/(innerHeight*.35));
+ rh.style.setProperty('--ry',dx*26+'deg');rh.style.setProperty('--rx',-dy*18+'deg');pu.forEach(p=>{p.style.setProperty('--px',dx*7+'px');p.style.setProperty('--py',dy*6+'px')})},{passive:true});
+let bt=0;function bot(k){clearTimeout(bt);rb.className='';void rb.offsetWidth;rb.className=k;bt=setTimeout(()=>{rb.className=''},k==='ok'?2200:2000);return new Promise(r=>setTimeout(r,k==='ok'?1100:0))}
+(()=>{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const c=$('#wp'),x=c.getContext('2d');let W,H,S=[];const mk=()=>({a:Math.random()*6.283,r:Math.random()*.9+.05,z:Math.random()*.9+.1}),rs=()=>{W=c.width=innerWidth;H=c.height=innerHeight;S=Array.from({length:150},mk)};rs();addEventListener('resize',rs);
+ (function f(){requestAnimationFrame(f);if(!lockOn())return;x.fillStyle='rgba(6,5,3,.3)';x.fillRect(0,0,W,H);const m=Math.max(W,H)*.18;
+  S.forEach(s=>{const z0=s.z;s.z-=.011;if(s.z<=.03)Object.assign(s,mk(),{z:1});const p=z=>[W/2+Math.cos(s.a)*s.r*m/z,H/2+Math.sin(s.a)*s.r*m/z],a=p(z0),b=p(s.z);
+   x.strokeStyle=`rgba(${235-s.z*50|0},${195-s.z*60|0},90,${.95-s.z*.6})`;x.lineWidth=.6+(1-s.z)*2.2;x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.stroke()})})()})();
+$('#lf').onsubmit=async e=>{e.preventDefault();const u=$('#lu').value.trim().toLowerCase(),p=$('#lp').value,er=$('#le'),b=$('#lb');er.textContent='';$('#lm').textContent='';
+ if(!sb){er.textContent=T('لم يتم ضبط رابط ومفتاح Supabase أول السكريبت، أو تعذر تحميل المكتبة.','Supabase URL/key are not set at the top of the script, or the library failed to load.');return}
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(u)){er.textContent=T('اكتب بريدًا إلكترونيًا صحيحًا.','Enter a valid email address.');return}
+ if(signup){
+  const nm=$('#ln').value.trim();
+  if(!nm){er.textContent=T('اكتب اسمك.','Enter your name.');return}
+  if(p.length<8){er.textContent=T('كلمة المرور لازم تكون 8 حروف على الأقل.','Password must be at least 8 characters.');return}
+  if(p!==$('#lc').value){er.textContent=T('التأكيد غير مطابق.','Confirmation does not match.');return}
+  b.disabled=true;
+  const{data,error}=await sb.auth.signUp({email:u,password:p,options:{data:{name:nm}}});
+  if(data&&data.session){try{await sb.auth.signOut()}catch{}}
+  b.disabled=false;
+  if(error){er.textContent=/registered|exists/i.test(error.message)?T('هذا البريد مسجّل بالفعل.','This email is already registered.'):error.message;return}
+  $('#lm').textContent=T('تم إرسال طلبك للمسؤول. هتقدر تدخل بعد الموافقة عليه.','Your request was sent to the admin. You can sign in once it is approved.');$('#lp').value=$('#lc').value='';return}
+ if(!p){er.textContent=T('اكتب كلمة المرور.','Enter the password.');return}
+ b.disabled=true;
+ const{data,error}=await sb.auth.signInWithPassword({email:u,password:p});
+ if(error){await new Promise(r=>setTimeout(r,600));b.disabled=false;bot('no');er.textContent=/invalid login/i.test(error.message)?T('البريد أو كلمة المرور غير صحيحة.','Wrong email or password.'):/not confirmed/i.test(error.message)?T('البريد لم يتم تأكيده بعد. افتح رسالة التأكيد في إيميلك (وشوف Spam) أو اطلب من المسؤول تفعيله.','Email not confirmed yet. Open the confirmation email (check Spam) or ask the admin to activate it.'):error.message;$('#lp').select();return}
+ await bot('ok');await enter(data.session);b.disabled=false};
+$('#lo').onclick=async()=>{try{if(sb)await sb.auth.signOut()}catch{}lockUI()};
+if(sb)sb.auth.onAuthStateChange(ev=>{if(ev==='SIGNED_OUT'&&ME)lockUI()});
+(async()=>{
+ if(!sb){lockUI();$('#le').textContent=T('لم يتم ضبط رابط ومفتاح Supabase أول السكريبت، أو تعذر تحميل المكتبة.','Supabase URL/key are not set at the top of the script, or the library failed to load.');return}
+ const{data}=await sb.auth.getSession();
+ if(data.session)await enter(data.session);else lockUI();
+})();
+/* ===== mouse smoke ===== */
+const SK='scanapp.smoke';let smokeOn=true;try{const v=localStorage.getItem(SK);smokeOn=v?v==='1':!matchMedia('(prefers-reduced-motion:reduce)').matches}catch{}
+const cv=$('#smk'),cx=cv.getContext('2d'),P=[];let raf=0,lx=0,ly=0,hue=0;
+function rs(){const d=Math.min(2,devicePixelRatio||1);cv.width=innerWidth*d;cv.height=innerHeight*d;cx.setTransform(d,0,0,d,0,0)}
+addEventListener('resize',rs);rs();
+function puff(x,y,n){hue=(hue+5)%360;for(let i=0;i<n&&P.length<140;i++)P.push({x:x+(Math.random()-.5)*8,y:y+(Math.random()-.5)*8,vx:(Math.random()-.5)*.8,vy:-.3-Math.random()*.7,r:10+Math.random()*10,l:0,h:hue+Math.random()*50})}
+function tick(){cx.clearRect(0,0,innerWidth,innerHeight);
+ for(let i=P.length-1;i>=0;i--){const p=P[i];if(++p.l>=60){P.splice(i,1);continue}p.x+=p.vx;p.y+=p.vy;p.vx*=.985;p.r+=.55;const a=.3*(1-p.l/60),g=cx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+  g.addColorStop(0,`hsla(${p.h},90%,60%,${a})`);g.addColorStop(1,`hsla(${p.h},90%,60%,0)`);cx.fillStyle=g;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fill()}
+ raf=P.length?requestAnimationFrame(tick):0}
+addEventListener('pointermove',e=>{if(!smokeOn)return;const d=Math.hypot(e.clientX-lx,e.clientY-ly);lx=e.clientX;ly=e.clientY;puff(lx,ly,Math.min(3,1+(d>>3)));if(!raf)raf=requestAnimationFrame(tick)},{passive:true});
+function setSmoke(on,sv){smokeOn=on;if(sv)try{localStorage.setItem(SK,on?'1':'0')}catch{}$('#smb').setAttribute('aria-pressed',on);if(!on){P.length=0;cx.clearRect(0,0,innerWidth,innerHeight)}}
+$('#smb').onclick=()=>setSmoke(!smokeOn,1);setSmoke(smokeOn);
+</script>
+</body>
+</html>
